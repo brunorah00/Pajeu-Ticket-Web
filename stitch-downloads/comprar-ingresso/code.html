@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cine São José - Comprar Ingresso</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#e5e2e1",
+                      "inverse-surface": "#e5e2e1",
+                      "on-primary-fixed-variant": "#930100",
+                      "surface": "#131313",
+                      "error-container": "#93000a",
+                      "surface-bright": "#FFFFFF",
+                      "rating-arc": "#FF0000",
+                      "secondary-container": "#474746",
+                      "tertiary-container": "#ff5447",
+                      "on-secondary-fixed-variant": "#474746",
+                      "on-error": "#690005",
+                      "inverse-on-surface": "#313030",
+                      "secondary": "#c8c6c5",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#930007",
+                      "tertiary": "#ffb4aa",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "surface-container-highest": "#353534",
+                      "on-primary-container": "#5c0000",
+                      "surface-variant": "#353534",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "outline": "#b18780",
+                      "primary": "#ffb4a8",
+                      "on-tertiary-container": "#5c0002",
+                      "accent-orange": "#E36414",
+                      "on-secondary": "#303030",
+                      "on-tertiary": "#690003",
+                      "background": "#131313",
+                      "surface-container": "#201f1f",
+                      "on-surface-variant": "#ebbbb4",
+                      "error": "#ffb4ab",
+                      "on-primary": "#690100",
+                      "on-primary-fixed": "#410000",
+                      "on-background": "#e5e2e1",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-secondary-container": "#b7b5b4",
+                      "surface-container-low": "#1c1b1b",
+                      "tertiary-fixed-dim": "#ffb4aa",
+                      "surface-elevated": "#1A1A1A",
+                      "on-surface": "#e5e2e1",
+                      "outline-variant": "#603e39",
+                      "surface-dim": "#131313",
+                      "surface-container-high": "#2a2a2a",
+                      "tertiary-fixed": "#ffdad5",
+                      "primary-container": "#ff5540",
+                      "primary-fixed": "#ffdad4",
+                      "inverse-primary": "#c00100",
+                      "on-tertiary-fixed": "#410001",
+                      "surface-tint": "#ffb4a8",
+                      "on-secondary-fixed": "#1b1c1c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "8px",
+                      "stack-lg": "24px",
+                      "section-gap": "64px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "stack-md": "16px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "title-md": ["Plus Jakarta Sans"],
+                      "body-sm": ["Inter"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "label-lg": ["Plus Jakarta Sans"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                      "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "label-lg": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background: rgba(26, 26, 26, 0.8);
+        }
+        .seat-grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            gap: 6px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+<!-- Top AppBar -->
+<header class="bg-surface sticky top-0 z-50 shadow-md border-b border-outline-variant flex justify-between items-center px-margin-mobile py-4 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Serra Talhada - PE</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface">Cine São José</h1>
+<button class="material-symbols-outlined text-primary" data-icon="menu" onclick="toggleMenu()">menu</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex flex-col pb-32">
+<!-- Step 1: Movie Selection Shelf -->
+<section class="px-margin-mobile pt-stack-lg">
+<h2 class="font-title-md text-title-md mb-stack-md">Comprar Ingresso</h2>
+<div class="flex gap-4 overflow-x-auto no-scrollbar pb-stack-sm -mx-margin-mobile px-margin-mobile">
+<!-- Active Card -->
+<div class="flex-shrink-0 w-40 rounded-xl overflow-hidden border-2 border-primary shadow-lg ring-4 ring-primary/20">
+<img class="w-full aspect-[2/3] object-cover" data-alt="A cinematic promotional movie poster for O Mandaloriano e Grogu featuring the armored protagonist and the small green creature in a high-contrast, dramatic composition. The lighting is moody with warm orange embers and deep charcoal blacks, reflecting a premium cinematic noir aesthetic with vibrant red highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsebrIXrTc9c7r7piE_rLkBPGa16Cl9oi-fYYP3TLGp27t2Yjs4m8qccKd0KND3GXPu53VJE-0UjRMePmGO7yp8wd6Xigj27jJ3eOeNk7Xz-lpPUKhgtQnm9-FpakLFkbs9o0w3QgKeo9_4eT2tFVS5WAqp3KweinG2oVEgGohBZAn7-Bs2Y1w6mK5Sm5Ux3zatJt_0QkbZOKpxlPIj1bfnsG1TmqIo4_qmwS4cuFgPFPkz_HX6Veyk7pTimIKqEYxltpgVBYT9Rc"/>
+<div class="p-2 bg-surface-container-high">
+<p class="font-label-sm text-label-sm text-primary truncate">O Mandaloriano e Grogu</p>
+</div>
+</div>
+<!-- Other Cards -->
+<div class="flex-shrink-0 w-32 rounded-xl overflow-hidden border border-outline-variant opacity-60">
+<img class="w-full aspect-[2/3] object-cover" data-alt="A striking vertical movie poster for an intense thriller titled Obsessão, featuring a dark and mysterious visual style. The composition uses deep blacks and muted tones with a single bright highlight to create a sense of suspense and high-fidelity drama, consistent with the cinematic noir theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmrFP5_mC1SYjhlmUQc0tWIgez9nANdyBs3InGUZpBxc6I7Hnd2LGiQGCNxAmdp6jjCk7W5LapAwzwac8EDDT7Xi32VoKRJeH2Ljz7d-g9fEvvlkteDzQl8Z1LWRVMtGWrBIXjAhe3CvJPUi8A5pkd6L2-nI2TT-TDcRb0bLsvD4rmWfS3MLUCtJNB4sCtRDlerioUEYizUUjURRshJar9VQrr2ImyV65BdjFgmlEdLtUf_izXUGmyRZVdgaMYOi8soOcLys1Hl9o"/>
+</div>
+<div class="flex-shrink-0 w-32 rounded-xl overflow-hidden border border-outline-variant opacity-60">
+<img class="w-full aspect-[2/3] object-cover" data-alt="A cinematic poster for O Poder do Rosário, featuring a dramatic and emotional scene with spiritual undertones. The lighting is soft and directional, emerging from deep shadows to highlight the protagonist's face in a corporate modern style with cinematic noir depth and high-contrast accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVxQHnNfnB_KtpMd45afo8DOT6kPJqykT6Zl4jPKk1DzijtfgBNxIZkzF29PgF5mAsrewa7m1rkIMapHFTWlBN2Pz1fYPgQVhHKJ0NyHZVmHN_rzfz2zXQrWZcHg8twxFT15MKWGQCUPOqhaG1XfDzBiL8PQakPJmKwtiOBLwEYSowkM7rO7O9OYEVHuWARiMHlT0zg-puyU7Zs8gNO9aDIuNpiRJm6kHEtxVyG7CdrM8tZNxe6OEUVs2UznefGLrf4IHQPtycA3s"/>
+</div>
+</div>
+</section>
+<!-- Step 2: Session Selection -->
+<section class="px-margin-mobile mt-stack-lg">
+<div class="flex items-center gap-2 mb-stack-md text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<h3 class="font-label-lg text-label-lg uppercase tracking-wider">Data e Horário</h3>
+</div>
+<div class="flex gap-2 overflow-x-auto no-scrollbar mb-stack-md">
+<button class="flex-shrink-0 px-6 py-3 rounded-xl bg-primary text-on-primary font-label-lg text-center">
+                    Hoje<br/><span class="text-xs opacity-80">04 Jun</span>
+</button>
+<button class="flex-shrink-0 px-6 py-3 rounded-xl bg-surface-container-low border border-outline-variant text-on-surface-variant font-label-lg text-center">
+                    Sex<br/><span class="text-xs">05 Jun</span>
+</button>
+<button class="flex-shrink-0 px-6 py-3 rounded-xl bg-surface-container-low border border-outline-variant text-on-surface-variant font-label-lg text-center">
+                    Sáb<br/><span class="text-xs">06 Jun</span>
+</button>
+</div>
+<div class="grid grid-cols-3 gap-stack-sm">
+<button class="py-3 rounded-lg border border-primary text-primary font-bold bg-primary/10">14:20</button>
+<button class="py-3 rounded-lg border border-outline-variant text-on-surface-variant bg-surface-container-low">17:30</button>
+<button class="py-3 rounded-lg border border-outline-variant text-on-surface-variant bg-surface-container-low">20:45</button>
+</div>
+</section>
+<!-- Step 3: Seat Mapping -->
+<section class="px-margin-mobile mt-stack-lg">
+<div class="flex items-center justify-between mb-stack-md">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="event_seat">event_seat</span>
+<h3 class="font-label-lg text-label-lg uppercase tracking-wider">Escolha seus Assentos</h3>
+</div>
+<div class="text-primary font-label-sm text-label-sm">Sala 02 - IMAX</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-2xl border border-outline-variant relative overflow-hidden">
+<!-- Screen Indicator -->
+<div class="w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mb-12 shadow-[0_4px_12px_rgba(255,180,168,0.3)]"></div>
+<p class="text-center text-[10px] text-on-surface-variant uppercase tracking-[0.2em] -mt-10 mb-12 opacity-50">TELA</p>
+<div class="seat-grid mb-8">
+<!-- Generating a grid of seats -->
+<script>
+                        const grid = document.querySelector('.seat-grid');
+                        for(let i=0; i<48; i++) {
+                            const isOccupied = Math.random() > 0.8;
+                            const isSelected = i === 18 || i === 19;
+                            const btn = document.createElement('button');
+                            btn.className = `aspect-square rounded-[2px] transition-all duration-200 ${
+                                isOccupied ? 'bg-surface-container-highest cursor-not-allowed' : 
+                                isSelected ? 'bg-primary ring-2 ring-primary ring-offset-2 ring-offset-surface shadow-[0_0_10px_rgba(255,180,168,0.5)]' : 
+                                'bg-outline-variant/30 hover:bg-outline-variant'
+                            }`;
+                            grid.appendChild(btn);
+                        }
+                    </script>
+</div>
+<div class="flex justify-around text-[10px] uppercase tracking-widest text-on-surface-variant">
+<div class="flex items-center gap-2"><div class="w-3 h-3 rounded-[2px] bg-outline-variant/30"></div> Livre</div>
+<div class="flex items-center gap-2"><div class="w-3 h-3 rounded-[2px] bg-surface-container-highest"></div> Ocupado</div>
+<div class="flex items-center gap-2"><div class="w-3 h-3 rounded-[2px] bg-primary shadow-sm"></div> Selecionado</div>
+</div>
+</div>
+</section>
+<!-- Summary & Checkout Footer (Sticky Bottom) -->
+<div class="fixed bottom-0 left-0 w-full glass-effect border-t border-outline-variant px-margin-mobile py-4 z-[55] flex flex-col gap-4">
+<div class="flex justify-between items-end">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2 Ingressos (C7, C8)</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">R$ 74,00</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Filme</p>
+<p class="font-label-lg text-label-lg text-on-surface">O Mandaloriano...</p>
+</div>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary font-bold rounded-xl shadow-lg active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+                Comprar Agora
+            </button>
+</div>
+</main>
+<!-- Navigation Drawer (Off-canvas) -->
+<div class="fixed right-0 top-0 h-full w-64 z-[100] bg-surface-container shadow-lg translate-x-full transition-transform duration-300" id="drawer">
+<div class="p-margin-mobile flex flex-col h-full">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-title-md text-title-md text-primary">Menu</h2>
+<button class="material-symbols-outlined" data-icon="close" onclick="toggleMenu()">close</button>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-secondary-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="eco">eco</span>
+<span class="font-title-md text-title-md text-[16px]">Sustentabilidade</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-secondary-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+<span class="font-title-md text-title-md text-[16px]">Club Cine São José</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-secondary-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="movie">movie</span>
+<span class="font-title-md text-title-md text-[16px]">Programação</span>
+</a>
+<a class="flex items-center gap-3 p-3 bg-primary-container text-on-primary-container rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+<span class="font-title-md text-title-md text-[16px]">Comprar Ingresso</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-secondary-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="fastfood">fastfood</span>
+<span class="font-title-md text-title-md text-[16px]">Bomboniere</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-4">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-secondary-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-title-md text-title-md text-[16px]">Minha Área</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Drawer Backdrop -->
+<div class="fixed inset-0 bg-black/60 z-[90] hidden" id="backdrop" onclick="toggleMenu()"></div>
+<!-- Bottom Navigation (Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around py-2 md:hidden bg-surface-container-low border-t border-outline-variant shadow-lg" style="bottom: 84px;"> <!-- Offset for checkout button -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Início</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="theaters">theaters</span>
+<span class="font-label-sm text-label-sm">Filmes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="local_activity">local_activity</span>
+<span class="font-label-sm text-label-sm">Ingressos</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Perfil</span>
+</a>
+</nav>
+<script>
+        function toggleMenu() {
+            const drawer = document.getElementById('drawer');
+            const backdrop = document.getElementById('backdrop');
+            drawer.classList.toggle('translate-x-full');
+            backdrop.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+    </script>
+</body></html>

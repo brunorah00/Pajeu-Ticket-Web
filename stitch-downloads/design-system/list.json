@@ -1,0 +1,145 @@
+{
+  "designSystems": [
+    {
+      "designSystem": {
+        "displayName": "Cinematic Noir",
+        "styleGuidelines": "## Brand & Style\n\nThe design system is engineered to evoke the immersive, high-contrast atmosphere of a modern premium cinema. It targets entertainment enthusiasts who value a high-fidelity browsing experience that mimics the \"lights down\" feeling of a movie theater.\n\nThe visual style is **Corporate Modern with High-Contrast accents**. It utilizes a deep charcoal and black foundation to let movie posters and trailers become the focal point. Vibrant red accents are used strategically to guide the user toward primary conversion points, such as ticket purchasing and key calls to action. The interface maintains a clean, sophisticated edge through structured layouts and meticulous attention to visual depth.\n\n## Layout & Spacing\n\nThe layout follows a **Fixed Grid** model for desktop to ensure content remains centered and cinematic, transitioning to a fluid model for mobile devices.\n\n- **Grid:** A 12-column grid with 24px gutters.\n- **Rhythm:** A base-8 spacing system is used (8, 16, 24, 32, 48, 64).\n- **Responsive Behavior:** \n    - **Desktop (1024px+):** 1280px max-width container. 64px vertical spacing between major sections.\n    - **Tablet (768px - 1023px):** Margins reduce to 32px. Movie card grids reflow from 4-5 columns to 3.\n    - **Mobile (<767px):** Margins reduce to 16px. Grids typically reflow to 2 columns or horizontal scrolling \"shelves\" to maximize poster visibility.\n\n## Elevation & Depth\n\nVisual hierarchy is established through **Tonal Layers** rather than heavy shadows. \n\n1. **Base Layer (#111111):** The root canvas for the entire application.\n2. **Surface Layer (#1A1A1A):** Used for cards and secondary containers. This subtle shift in value provides enough contrast to define boundaries without breaking the \"total black\" aesthetic.\n3. **Interactive Layer:** Active states and hovered cards use a subtle **Ambient Shadow** (0px 8px 24px rgba(0,0,0,0.5)) to create a slight lift.\n4. **Overlays:** Modals and navigation menus utilize a backdrop blur (12px) with a semi-transparent dark fill to maintain context of the underlying content.\n\n## Components\n\n### Buttons\n- **Primary:** Solid #FF0000 background with white text. High-contrast, bold, and slightly wide padding.\n- **Secondary / Outline:** Transparent background with a 1px border of #222222. On hover, the border becomes the primary red.\n- **Icon Buttons:** Circular #222222 background for navigation arrows (e.g., carousel controls).\n\n### Movie Cards\n- **Structure:** Vertical aspect ratio posters (2:3).\n- **Metadata:** A semi-transparent dark gradient overlay at the bottom of the poster for the title, or title placed immediately below the card.\n- **Ratings:** Circular progress arc in primary red, centered in a secondary container next to the poster in list views.\n\n### Input Fields\n- Dark grey (#222222) background with 1px #333333 border. \n- Focus state: Border transitions to primary red (#FF0000).\n\n### Social Interactions\n- **Avatars:** Small circular images with a subtle 1px border.\n- **Comments:** Contained within Surface Layer (#1A1A1A) cards. Use Body-SM for timestamps and author names.\n- **Progressive Indicators:** For \"watched\" counts or \"likes,\" use simple icons followed by pill-shaped counter badges.\n\n### Promotional Banners\n- Large-scale hero components featuring a central \"Play\" icon (circular outline with triangle) and high-impact Display-LG typography.",
+        "theme": {
+          "bodyFont": "INTER",
+          "bodyFontFamily": "Inter",
+          "colorMode": "DARK",
+          "colorVariant": "FIDELITY",
+          "customColor": "#ff0000",
+          "designMd": "---\nname: Cinematic Noir\ncolors:\n  surface: '#131313'\n  surface-dim: '#131313'\n  surface-bright: '#FFFFFF'\n  surface-container-lowest: '#0e0e0e'\n  surface-container-low: '#1c1b1b'\n  surface-container: '#201f1f'\n  surface-container-high: '#2a2a2a'\n  surface-container-highest: '#353534'\n  on-surface: '#e5e2e1'\n  on-surface-variant: '#ebbbb4'\n  inverse-surface: '#e5e2e1'\n  inverse-on-surface: '#313030'\n  outline: '#b18780'\n  outline-variant: '#603e39'\n  surface-tint: '#ffb4a8'\n  primary: '#ffb4a8'\n  on-primary: '#690100'\n  primary-container: '#ff5540'\n  on-primary-container: '#5c0000'\n  inverse-primary: '#c00100'\n  secondary: '#c8c6c5'\n  on-secondary: '#303030'\n  secondary-container: '#474746'\n  on-secondary-container: '#b7b5b4'\n  tertiary: '#ffb4aa'\n  on-tertiary: '#690003'\n  tertiary-container: '#ff5447'\n  on-tertiary-container: '#5c0002'\n  error: '#ffb4ab'\n  on-error: '#690005'\n  error-container: '#93000a'\n  on-error-container: '#ffdad6'\n  primary-fixed: '#ffdad4'\n  primary-fixed-dim: '#ffb4a8'\n  on-primary-fixed: '#410000'\n  on-primary-fixed-variant: '#930100'\n  secondary-fixed: '#e5e2e1'\n  secondary-fixed-dim: '#c8c6c5'\n  on-secondary-fixed: '#1b1c1c'\n  on-secondary-fixed-variant: '#474746'\n  tertiary-fixed: '#ffdad5'\n  tertiary-fixed-dim: '#ffb4aa'\n  on-tertiary-fixed: '#410001'\n  on-tertiary-fixed-variant: '#930007'\n  background: '#131313'\n  on-background: '#e5e2e1'\n  surface-variant: '#353534'\n  surface-elevated: '#1A1A1A'\n  accent-orange: '#E36414'\n  rating-arc: '#FF0000'\ntypography:\n  display-lg:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 48px\n    fontWeight: '700'\n    lineHeight: '1.1'\n    letterSpacing: -0.02em\n  headline-lg:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 32px\n    fontWeight: '700'\n    lineHeight: '1.2'\n  headline-lg-mobile:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 24px\n    fontWeight: '700'\n    lineHeight: '1.2'\n  title-md:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 20px\n    fontWeight: '600'\n    lineHeight: '1.4'\n  body-md:\n    fontFamily: Inter\n    fontSize: 16px\n    fontWeight: '400'\n    lineHeight: '1.6'\n  body-sm:\n    fontFamily: Inter\n    fontSize: 14px\n    fontWeight: '400'\n    lineHeight: '1.6'\n  label-lg:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 14px\n    fontWeight: '600'\n    lineHeight: '1'\n    letterSpacing: 0.05em\n  label-sm:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 12px\n    fontWeight: '500'\n    lineHeight: '1'\nrounded:\n  sm: 0.25rem\n  DEFAULT: 0.5rem\n  md: 0.75rem\n  lg: 1rem\n  xl: 1.5rem\n  full: 9999px\nspacing:\n  container-max: 1280px\n  gutter: 24px\n  margin-mobile: 16px\n  section-gap: 64px\n  stack-sm: 8px\n  stack-md: 16px\n  stack-lg: 24px\n---\n\n## Brand & Style\n\nThe design system is engineered to evoke the immersive, high-contrast atmosphere of a modern premium cinema. It targets entertainment enthusiasts who value a high-fidelity browsing experience that mimics the \"lights down\" feeling of a movie theater.\n\nThe visual style is **Corporate Modern with High-Contrast accents**. It utilizes a deep charcoal and black foundation to let movie posters and trailers become the focal point. Vibrant red accents are used strategically to guide the user toward primary conversion points, such as ticket purchasing and key calls to action. The interface maintains a clean, sophisticated edge through structured layouts and meticulous attention to visual depth.\n\n## Colors\n\nThe palette is strictly dark-mode centric to ensure maximum content \"pop.\"\n\n- **Primary:** A vibrant, high-saturation red (#FF0000) reserved for the most important actions, progress arcs, and highlight underlines.\n- **Neutral / Background:** A deep charcoal-black (#111111) serves as the primary canvas, reducing eye strain and enhancing the cinematic feel.\n- **Surface Layers:** Secondary (#222222) and elevated variants (#1A1A1A) are used to create structural containment for cards and interactive feeds.\n- **Accents:** A secondary orange tint is used specifically for technical metadata like content age ratings.\n\n## Typography\n\nThis design system uses a dual-font strategy to balance character with legibility.\n\n- **Plus Jakarta Sans** is the display face. Its modern, slightly rounded geometric forms provide an approachable yet premium feel for headlines, buttons, and section titles.\n- **Inter** is the workhorse for body text, news snippets, and social interactions, ensuring maximum readability even at smaller sizes in a dark environment.\n\nHierarchy is enforced through weight rather than just size. Headlines use a **700 (Bold)** weight to anchor the page, while secondary metadata uses a reduced opacity (70% white) to maintain a clear visual order.\n\n## Layout & Spacing\n\nThe layout follows a **Fixed Grid** model for desktop to ensure content remains centered and cinematic, transitioning to a fluid model for mobile devices.\n\n- **Grid:** A 12-column grid with 24px gutters.\n- **Rhythm:** A base-8 spacing system is used (8, 16, 24, 32, 48, 64).\n- **Responsive Behavior:** \n    - **Desktop (1024px+):** 1280px max-width container. 64px vertical spacing between major sections.\n    - **Tablet (768px - 1023px):** Margins reduce to 32px. Movie card grids reflow from 4-5 columns to 3.\n    - **Mobile (<767px):** Margins reduce to 16px. Grids typically reflow to 2 columns or horizontal scrolling \"shelves\" to maximize poster visibility.\n\n## Elevation & Depth\n\nVisual hierarchy is established through **Tonal Layers** rather than heavy shadows. \n\n1. **Base Layer (#111111):** The root canvas for the entire application.\n2. **Surface Layer (#1A1A1A):** Used for cards and secondary containers. This subtle shift in value provides enough contrast to define boundaries without breaking the \"total black\" aesthetic.\n3. **Interactive Layer:** Active states and hovered cards use a subtle **Ambient Shadow** (0px 8px 24px rgba(0,0,0,0.5)) to create a slight lift.\n4. **Overlays:** Modals and navigation menus utilize a backdrop blur (12px) with a semi-transparent dark fill to maintain context of the underlying content.\n\n## Shapes\n\nThe design system employs a **Rounded (0.5rem)** shape language. This provides a soft, modern touch that offsets the \"harshness\" of the high-contrast dark theme.\n\n- **Cards & Inputs:** 0.5rem (8px) corner radius.\n- **Large Banners:** 1rem (16px) corner radius for a more distinctive, framed look.\n- **Buttons:** 0.5rem (8px) for standard buttons, though specific \"Pill\" shapes can be used for secondary tags or social chips.\n- **Circular Elements:** Rating indicators and user avatars always utilize a 50% radius (full circle).\n\n## Components\n\n### Buttons\n- **Primary:** Solid #FF0000 background with white text. High-contrast, bold, and slightly wide padding.\n- **Secondary / Outline:** Transparent background with a 1px border of #222222. On hover, the border becomes the primary red.\n- **Icon Buttons:** Circular #222222 background for navigation arrows (e.g., carousel controls).\n\n### Movie Cards\n- **Structure:** Vertical aspect ratio posters (2:3).\n- **Metadata:** A semi-transparent dark gradient overlay at the bottom of the poster for the title, or title placed immediately below the card.\n- **Ratings:** Circular progress arc in primary red, centered in a secondary container next to the poster in list views.\n\n### Input Fields\n- Dark grey (#222222) background with 1px #333333 border. \n- Focus state: Border transitions to primary red (#FF0000).\n\n### Social Interactions\n- **Avatars:** Small circular images with a subtle 1px border.\n- **Comments:** Contained within Surface Layer (#1A1A1A) cards. Use Body-SM for timestamps and author names.\n- **Progressive Indicators:** For \"watched\" counts or \"likes,\" use simple icons followed by pill-shaped counter badges.\n\n### Promotional Banners\n- Large-scale hero components featuring a central \"Play\" icon (circular outline with triangle) and high-impact Display-LG typography.",
+          "font": "PLUS_JAKARTA_SANS",
+          "headlineFont": "PLUS_JAKARTA_SANS",
+          "headlineFontFamily": "Plus Jakarta Sans",
+          "labelFont": "PLUS_JAKARTA_SANS",
+          "labelFontFamily": "Plus Jakarta Sans",
+          "namedColors": {
+            "accent-orange": "#E36414",
+            "background": "#131313",
+            "error": "#ffb4ab",
+            "error_container": "#93000a",
+            "inverse_on_surface": "#313030",
+            "inverse_primary": "#c00100",
+            "inverse_surface": "#e5e2e1",
+            "on_background": "#e5e2e1",
+            "on_error": "#690005",
+            "on_error_container": "#ffdad6",
+            "on_primary": "#690100",
+            "on_primary_container": "#5c0000",
+            "on_primary_fixed": "#410000",
+            "on_primary_fixed_variant": "#930100",
+            "on_secondary": "#303030",
+            "on_secondary_container": "#b7b5b4",
+            "on_secondary_fixed": "#1b1c1c",
+            "on_secondary_fixed_variant": "#474746",
+            "on_surface": "#e5e2e1",
+            "on_surface_variant": "#ebbbb4",
+            "on_tertiary": "#690003",
+            "on_tertiary_container": "#5c0002",
+            "on_tertiary_fixed": "#410001",
+            "on_tertiary_fixed_variant": "#930007",
+            "outline": "#b18780",
+            "outline_variant": "#603e39",
+            "primary": "#ffb4a8",
+            "primary_container": "#ff5540",
+            "primary_fixed": "#ffdad4",
+            "primary_fixed_dim": "#ffb4a8",
+            "rating-arc": "#FF0000",
+            "secondary": "#c8c6c5",
+            "secondary_container": "#474746",
+            "secondary_fixed": "#e5e2e1",
+            "secondary_fixed_dim": "#c8c6c5",
+            "surface": "#131313",
+            "surface-bright": "#FFFFFF",
+            "surface-elevated": "#1A1A1A",
+            "surface_bright": "#3a3939",
+            "surface_container": "#201f1f",
+            "surface_container_high": "#2a2a2a",
+            "surface_container_highest": "#353534",
+            "surface_container_low": "#1c1b1b",
+            "surface_container_lowest": "#0e0e0e",
+            "surface_dim": "#131313",
+            "surface_tint": "#ffb4a8",
+            "surface_variant": "#353534",
+            "tertiary": "#ffb4aa",
+            "tertiary_container": "#ff5447",
+            "tertiary_fixed": "#ffdad5",
+            "tertiary_fixed_dim": "#ffb4aa"
+          },
+          "overrideNeutralColor": "#111111",
+          "overridePrimaryColor": "#ff0000",
+          "overrideSecondaryColor": "#222222",
+          "overrideTertiaryColor": "#e50914",
+          "roundness": "ROUND_EIGHT",
+          "spacing": {
+            "container-max": "1280px",
+            "gutter": "24px",
+            "margin-mobile": "16px",
+            "section-gap": "64px",
+            "stack-lg": "24px",
+            "stack-md": "16px",
+            "stack-sm": "8px"
+          },
+          "spacingScale": 2,
+          "typography": {
+            "body-md": {
+              "fontFamily": "Inter",
+              "fontSize": "16px",
+              "fontWeight": "400",
+              "lineHeight": "1.6"
+            },
+            "body-sm": {
+              "fontFamily": "Inter",
+              "fontSize": "14px",
+              "fontWeight": "400",
+              "lineHeight": "1.6"
+            },
+            "display-lg": {
+              "fontFamily": "Plus Jakarta Sans",
+              "fontSize": "48px",
+              "fontWeight": "700",
+              "letterSpacing": "-0.02em",
+              "lineHeight": "1.1"
+            },
+            "headline-lg": {
+              "fontFamily": "Plus Jakarta Sans",
+              "fontSize": "32px",
+              "fontWeight": "700",
+              "lineHeight": "1.2"
+            },
+            "headline-lg-mobile": {
+              "fontFamily": "Plus Jakarta Sans",
+              "fontSize": "24px",
+              "fontWeight": "700",
+              "lineHeight": "1.2"
+            },
+            "label-lg": {
+              "fontFamily": "Plus Jakarta Sans",
+              "fontSize": "14px",
+              "fontWeight": "600",
+              "letterSpacing": "0.05em",
+              "lineHeight": "1"
+            },
+            "label-sm": {
+              "fontFamily": "Plus Jakarta Sans",
+              "fontSize": "12px",
+              "fontWeight": "500",
+              "lineHeight": "1"
+            },
+            "title-md": {
+              "fontFamily": "Plus Jakarta Sans",
+              "fontSize": "20px",
+              "fontWeight": "600",
+              "lineHeight": "1.4"
+            }
+          }
+        }
+      },
+      "name": "assets/c1c829b7d7ad4ef28e27392e173d37cf",
+      "version": "1"
+    }
+  ]
+}

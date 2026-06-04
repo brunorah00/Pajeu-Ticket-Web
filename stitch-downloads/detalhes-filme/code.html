@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>O Mandaloriano e Grogu | Cine São José</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#e5e2e1",
+                      "inverse-surface": "#e5e2e1",
+                      "on-primary-fixed-variant": "#930100",
+                      "surface": "#131313",
+                      "error-container": "#93000a",
+                      "surface-bright": "#FFFFFF",
+                      "rating-arc": "#FF0000",
+                      "secondary-container": "#474746",
+                      "tertiary-container": "#ff5447",
+                      "on-secondary-fixed-variant": "#474746",
+                      "on-error": "#690005",
+                      "inverse-on-surface": "#313030",
+                      "secondary": "#c8c6c5",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#930007",
+                      "tertiary": "#ffb4aa",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "surface-container-highest": "#353534",
+                      "on-primary-container": "#5c0000",
+                      "surface-variant": "#353534",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "outline": "#b18780",
+                      "primary": "#ffb4a8",
+                      "on-tertiary-container": "#5c0002",
+                      "accent-orange": "#E36414",
+                      "on-secondary": "#303030",
+                      "on-tertiary": "#690003",
+                      "background": "#131313",
+                      "surface-container": "#201f1f",
+                      "on-surface-variant": "#ebbbb4",
+                      "error": "#ffb4ab",
+                      "on-primary": "#690100",
+                      "on-primary-fixed": "#410000",
+                      "on-background": "#e5e2e1",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-secondary-container": "#b7b5b4",
+                      "surface-container-low": "#1c1b1b",
+                      "tertiary-fixed-dim": "#ffb4aa",
+                      "surface-elevated": "#1A1A1A",
+                      "on-surface": "#e5e2e1",
+                      "outline-variant": "#603e39",
+                      "surface-dim": "#131313",
+                      "surface-container-high": "#2a2a2a",
+                      "tertiary-fixed": "#ffdad5",
+                      "primary-container": "#ff5540",
+                      "primary-fixed": "#ffdad4",
+                      "inverse-primary": "#c00100",
+                      "on-tertiary-fixed": "#410001",
+                      "surface-tint": "#ffb4a8",
+                      "on-secondary-fixed": "#1b1c1c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "8px",
+                      "stack-lg": "24px",
+                      "section-gap": "64px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "stack-md": "16px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "title-md": ["Plus Jakarta Sans"],
+                      "body-sm": ["Inter"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "label-lg": ["Plus Jakarta Sans"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                      "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "label-lg": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .arc-rating {
+            background: conic-gradient(from 180deg, #ff5540 100%, transparent 0);
+            mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3px));
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3px));
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden min-h-screen pb-20">
+<!-- Top Navigation Anchor (Mobile Context) -->
+<header class="bg-surface docked full-width top-0 sticky z-50 shadow-md border-b border-outline-variant flex justify-between items-center px-margin-mobile py-4 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Serra Talhada - PE</span>
+</div>
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile font-bold text-on-surface">Cine São José</h1>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="w-full">
+<!-- Movie Hero Section -->
+<section class="relative w-full aspect-[2/3] md:aspect-video max-h-[618px] overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A cinematic and high-detail promotional poster for a science fiction space adventure. The central figure is a mysterious warrior in shining metallic armor, holding a young child with large ears and green skin. They are surrounded by a deep space background with nebulae and distant planets, using a sophisticated color palette of charcoal blacks and vibrant primary reds. The lighting is dramatic and cinematic, reflecting a premium movie theater atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASTDCFjWIKABYUQcx13tgFdt-y9LPtHvstHj27ou2vQHDmu_aHa4uXOLk1IbZPwAvBVD63Mfg6JcHJhqvo6cmWfmggv-IayGfEWsHdcYWY1TzU1yJzpjAt8lnr9lBTrHrs3tHuUentco7i04FfIBg4C5SAkGLjebFIBDHVXQ0-chgqMK7gDfuh-T3dpXKNzcpe8tPZ175VYbnTPgng59CMrJSCLI2NzKFBadW75zaBZeIWN6IfCUMA9Y6FTrx7AP6J0TorVl9npoc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<button class="w-20 h-20 bg-black/40 backdrop-blur-md border-2 border-white/30 rounded-full flex items-center justify-center hover:scale-110 transition-transform group">
+<span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- Movie Tag -->
+<div class="absolute bottom-margin-mobile left-margin-mobile">
+<span class="text-primary font-label-sm text-label-sm tracking-widest uppercase mb-1 block">Aventura</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-white leading-tight">O Mandaloriano e Grogu</h2>
+</div>
+</section>
+<!-- Movie Metadata & Primary Actions -->
+<section class="px-margin-mobile py-6 flex flex-col gap-6">
+<div class="flex items-center gap-stack-md">
+<span class="bg-accent-orange text-white font-bold px-3 py-1 rounded-lg text-label-lg">14</span>
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-lg font-label-lg text-label-lg">02h11</span>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<button class="w-full bg-primary-container text-on-primary-container py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined">shopping_cart</span>
+                    Comprar ingressos
+                </button>
+<button class="w-full border border-outline-variant text-on-surface py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-surface-container transition-colors active:scale-95">
+<span class="material-symbols-outlined">calendar_today</span>
+                    Ver programação
+                </button>
+<button class="text-on-surface-variant text-label-sm font-label-sm py-2 hover:text-primary transition-colors">
+                    Mais detalhes do filme
+                </button>
+</div>
+</section>
+<hr class="border-outline-variant mx-margin-mobile"/>
+<!-- Social Interactions Section -->
+<section class="px-margin-mobile py-8 flex flex-col gap-8">
+<!-- User Social Bar -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-xl">visibility</span>
+<span class="font-label-sm text-label-sm">Já viram</span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded text-label-sm">5</span>
+</div>
+<div class="flex -space-x-3 overflow-hidden">
+<img alt="Avatar" class="inline-block h-8 w-8 rounded-full ring-2 ring-surface" data-alt="Close-up portrait of a movie fan with a neutral expression, high-contrast studio lighting, in a modern cinema enthusiast style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5ZVszwoZKnX_qX03_KAD2ncnRdEkFBE1PQKwqWFwmkI7cEC2zysa_wbezQ-dAMdBoLTft1Aj5z_H3JX66Jwmn8L1QniFkQqu5pE9ia4nd-C8teMeFnE6qqM5A09wxXnuANSHqZkX_4YrWgTi1S2fNYrvRQ8m7X0e5BfF7Q45UQdVmdoVa_-g45dG2o1X89q7BwBczuiDFG8imjJWlRBQhy4ci2SzP2QNMYyLfkzZaMXFQlL8vrmQnECxIDkcQ2VGITlFvCDr5kqQ"/>
+<img alt="Avatar" class="inline-block h-8 w-8 rounded-full ring-2 ring-surface" data-alt="Portrait of a young adult looking excited, dramatic side-lighting, cinematic color grading with red accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD48fZYdmE4vLD7m8m8_660M0VOqNxo7sAPP92y6c9Pe_9CXyO82ySlinGJPsM_zed5-cF6e6IH7G6vkeC3Y6OitPYo-d952ZX0pdaFuM67ewL4ju4wBnCcaT9lydEx_iC05TMoRgFJzYnD6ncTUzUaUHYOY4bBKfYgHrt_G2E0j3IL5rk80QfmRgpHxlc3KWFY_3FqiEWZMjzscCmlGWK3NXNmeP_1H1M-FR_tKQOM42gXP3ZCMrdaaMaToKE7Mo1MCEBuF8V8jqY"/>
+<img alt="Avatar" class="inline-block h-8 w-8 rounded-full ring-2 ring-surface" data-alt="Close-up of a person wearing glasses, looking thoughtful, cool color tones with a hint of red backlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTQK9_5G7Wt0UwukYaZXq5bYnWpmitnoJMBNuZyNJOqnRbVumvQ09VXWadIw27E5M77onA1cy19eycTRPWCgdor27muzCmvmqiAJUhnCLrcS9C2nHGO4fmwSxW8m0LnEcYjqzkSbXtZ_kywZ-EMOyIYmmO_uB4Y0c7Omolc02XoBCeJFbevpStX2tIjz0IXXNj1njVuLgxpPank_gKEdX8DSSzrrvyFhg28YTqO2IHzZ53DxG07IWuMX7EuhUuVZ7eHAefpJeZVKU"/>
+<img alt="Avatar" class="inline-block h-8 w-8 rounded-full ring-2 ring-surface" data-alt="Smiling face of a movie viewer in a dark environment, warm ambient light reflecting on skin." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLE1GN6_UwzsWz-OuuhToNzlckHqCbhjWXTbNKU5sx1Cnv5eBeyZRsuAoS07TEdRJJ6o131sYnFkqvgkM0iYaHsP1pke4vxMUt9cCZgSZ9b-bRHkMdr5FZ2csx3cVDNOp52q1as1mkvuI18JjM_WmTd8BXNjYvpjXfoFC7SLRdsB0_N_tHzEsFURj46qE0Zf-xTp5DHqBd2Y8xm3kFDruKPUNWIE7wz6Na0paJoCO0Ee-FhrYwWMSovGzVa1KgQNAxXe4tq9jfANM"/>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest border-2 border-surface flex items-center justify-center text-[10px] font-bold">+1</div>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="flex flex-col items-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">stars</span>
+<span class="text-[10px] uppercase font-bold">Avaliar</span>
+</button>
+<button class="flex flex-col items-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">comment</span>
+<span class="text-[10px] uppercase font-bold">Comentar</span>
+</button>
+</div>
+</div>
+<!-- Bento Layout for Ratings and Comments -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Rating Card -->
+<div class="bg-surface-container rounded-2xl p-6 flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="relative w-20 h-20 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-4 border-surface-container-highest"></div>
+<div class="absolute inset-0 arc-rating"></div>
+<span class="text-title-md font-title-md text-white">5,0</span>
+</div>
+<span class="mt-4 font-label-sm text-label-sm text-on-surface-variant">Nota Geral</span>
+</div>
+<!-- Personal Rating Prompt -->
+<div class="bg-surface-container rounded-2xl p-4 flex flex-col items-center justify-center text-center border-2 border-dashed border-outline-variant hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant mb-2">add_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dê sua nota</span>
+</div>
+</div>
+<!-- Comment Card -->
+<div class="flex flex-col gap-stack-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">chat_bubble</span>
+<h3 class="font-title-md text-title-md">Comentários</h3>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-label-sm">1</span>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">chevron_left</span>
+<span class="material-symbols-outlined text-primary text-xl">chevron_right</span>
+</div>
+</div>
+<div class="bg-surface-elevated rounded-2xl p-6 shadow-lg border border-white/5">
+<div class="flex items-center gap-3 mb-4">
+<img alt="Carlos" class="w-10 h-10 rounded-full border border-primary/30" data-alt="User avatar for Carlos, a cinema fan, showing a friendly male face in a slightly dark, cinematic environment with warm rim lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArRRGFB-QJ4A-6xUNzr4iQQBKd110sXz2pkJ1ZpAj-_7YdgIGXBavZcZCDY_mdaNXM5j0FDzCiHAXW2QIBNFYYSQ3qcXy0Rlg8oizrp9_BIi-cgIWaNvDdGiv55Ub2kmoyiqwFuDXSfim2hneG4AMADJ1B1udrEX60hQnojy6yjgvcWkvXMoVWW1Sa913BV8vvNYaSveZiBITkb2eB9_flURVD4fr8HazSXoT2l7ddUoKMPfCeLhvoaIZOXt_HZou9K7ukTvBwXus"/>
+<div>
+<p class="font-label-lg text-label-lg text-white">Carlos Rodrigo Gonçalves de Sá</p>
+<p class="text-body-sm text-on-surface-variant">Serra Talhada - PE</p>
+</div>
+</div>
+<p class="text-body-md font-body-md text-on-surface leading-relaxed">
+                        "Baita filme gostei muito l. Recomendo a todos que curtem a saga!"
+                    </p>
+</div>
+</div>
+</section>
+<!-- Movie Shelf Section -->
+<section class="py-section-gap">
+<div class="px-margin-mobile mb-margin-mobile flex justify-between items-end">
+<div>
+<div class="w-8 h-1 bg-primary mb-2"></div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold">Filmes em Cartaz</h2>
+</div>
+<button class="text-primary font-label-lg text-label-lg flex items-center gap-1">
+                    Ver todos <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="flex overflow-x-auto gap-4 px-margin-mobile no-scrollbar pb-4">
+<!-- Card 1 -->
+<div class="flex-none w-[140px] flex flex-col gap-2 group">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-lg group-active:scale-95 transition-all">
+<img class="w-full h-full object-cover" data-alt="A dark and intense movie poster for a drama titled 'Obsessão', featuring a shadowy figure and minimalist typography. The overall aesthetic is moody and sophisticated, fitting the cinematic noir theme with deep shadows and high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6TL79q6fDHU_ix898g8JHnbSUnU1Zu3jVdraPfDufzl7ND_q4nhVEBR8gE3ISzvaxWBbpA-GtZ8X3zaaDTbAwlI-RreN6LL_DznmD9h20D177bkISyUk3pNfAKh0KakI3vH3kZF7mKDpuCAnDA04F3y5l8pfAXYAr9Pp4-6XNz6vl8Dm1fL8Hx_SeE4MVdcq7zDXC-6JYPzHQhKJkEX2zDvQs5ZGsAokK3oedSbrlARTjem3DBFu0Q6PR-uWQs8FQVIlB4KxHl1Y"/>
+<div class="absolute top-2 left-2 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase">18</div>
+</div>
+<p class="font-label-sm text-label-sm truncate">Obsessão</p>
+</div>
+<!-- Card 2 (Active) -->
+<div class="flex-none w-[140px] flex flex-col gap-2 ring-2 ring-primary ring-offset-4 ring-offset-surface rounded-xl p-1">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-lg">
+<img class="w-full h-full object-cover" data-alt="Small poster version of the Mandalorian movie, focusing on the character's iconic helmet and the child. Deep black background with sharp metallic highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqiNGZjXh2CbU5rjydbNWIkAD79LaVW9pxSEtrd9vhvAoqLt2poZ6btMMcYJvtokdqF1lk9YEvtUZkCHeZTywhS_eWcPsgY8TOBwyNPf0A0qf55lSV7u0AK7n8f0xlpYyxn9sPUtDvvHt4Y54wTPshXuMqmnrEyFuBYOS4qObTbFT6Tcy0UO61foHgPKyQj3Z6GMEa-L0V5pAFPvY0MTC318gh4abW64xbv11B9B7NuYCwk-jPzQU0J-YGvp_z7yUQPVE7BLtfsvQ"/>
+<div class="absolute top-2 left-2 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase">14</div>
+</div>
+<p class="font-label-sm text-label-sm truncate text-primary">O Mandaloriano e Grogu</p>
+</div>
+<!-- Card 3 -->
+<div class="flex-none w-[140px] flex flex-col gap-2 group">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-lg group-active:scale-95 transition-all">
+<img class="w-full h-full object-cover" data-alt="A colorful and vibrant poster for a movie titled 'O Poder do Rosário', using high-contrast lighting and rich saturated colors typical of a prestige drama. Cinematic and artistic presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDinbfqtMK_zxLrkgN0-nX_QJ-djl_X1lWYQzoXcR4cWX_9u2buMgeeAqqkiLUhk4FbhWof9YA7hy6iA2akoz9GsEIY8fIYmZNwvBeI3Wr8rC3Qc-Gw9hEjkeNjABo0uycbjGOkbNfX34J1X3rBwJHhwzSL6TmuuyaOc0O2wpr5vdYMN2v04ecUjXgqwWg5ODOf2LHBtKh-Jmy2UVvwHeNTJYfK2tM_jHaoQNweclcxboWK6y8KhLc8J0Ktr_9SzH57-JZcv443f1I"/>
+<div class="absolute top-2 left-2 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase">12</div>
+</div>
+<p class="font-label-sm text-label-sm truncate">O Poder do Rosário</p>
+</div>
+<!-- Card 4 -->
+<div class="flex-none w-[140px] flex flex-col gap-2 group">
+<div class="relative aspect-[2/3] rounded-lg overflow-hidden shadow-lg group-active:scale-95 transition-all">
+<img class="w-full h-full object-cover" data-alt="Movie poster for a high-budget action film featuring intense lighting and cinematic silhouettes. Dark theme with glowing accent colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUMCvEADzJ4AXHxX0IObZ2Cvw0uYZuf8tMsh_CUmCjPjvFYEuJVHTK3QfpuEK_vgmzIIfJOfa8_uWEvdNCNyF8cZJDZsDtiHJD6NRKkukJDL5FXN4KNL6wMUxuxkNFRig7oiPZJtV8Wn02QOxJ_EC0He0NHRzIXG9lWVYfJeteabQkf3eKrOcVgfG_dyzCBs05Eh4jIdM37dq2tTFdjVNsX2aStoX8ToqJEq67D51wjF_ZL6pv_3HAGcit3uyjUpgMFmpptVJbkB4"/>
+<div class="absolute top-2 left-2 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase">12</div>
+</div>
+<p class="font-label-sm text-label-sm truncate">Michael</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Navigation Shell (BottomNavBar) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around py-2 md:hidden bg-surface-container-low border-t border-outline-variant shadow-lg backdrop-blur-md">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Início</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">theaters</span>
+<span class="font-label-sm text-label-sm">Filmes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined">local_activity</span>
+<span class="font-label-sm text-label-sm">Ingressos</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Perfil</span>
+</a>
+</nav>
+<!-- Dynamic Footer (Minimal for mobile details) -->
+<footer class="bg-surface-container-lowest px-margin-mobile py-8 pb-32 w-full max-w-container-max mx-auto text-center">
+<h2 class="font-headline-lg text-on-surface mb-4">Cine São José</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-6">
+            © 2026 Rede Cine São José. Todos os direitos reservados.
+        </p>
+<div class="flex justify-center gap-6 mb-8">
+<span class="material-symbols-outlined text-primary">social_leaderboard</span>
+<span class="material-symbols-outlined text-primary">share</span>
+<span class="material-symbols-outlined text-primary">camera_alt</span>
+<span class="material-symbols-outlined text-primary">play_circle</span>
+</div>
+<div class="flex flex-wrap justify-center gap-stack-md">
+<span class="text-primary font-bold text-body-sm">Sobre</span>
+<span class="text-on-surface-variant text-body-sm">Programação</span>
+<span class="text-on-surface-variant text-body-sm">Acessibilidade</span>
+</div>
+</footer>
+<script>
+        // Micro-interaction for rating arcs
+        document.addEventListener('DOMContentLoaded', () => {
+            const arcs = document.querySelectorAll('.arc-rating');
+            arcs.forEach(arc => {
+                arc.style.background = `conic-gradient(from 180deg, #ff5540 100%, transparent 0)`;
+            });
+            
+            // Atmospheric effect: subtle parallax on poster
+            const hero = document.querySelector('section img');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                hero.style.transform = `translateY(${scrolled * 0.15}px)`;
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cine São José - Cinema e Entretenimento</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed-variant": "#930100",
+                        "surface": "#131313",
+                        "error-container": "#93000a",
+                        "surface-bright": "#FFFFFF",
+                        "rating-arc": "#FF0000",
+                        "secondary-container": "#474746",
+                        "tertiary-container": "#ff5447",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-error": "#690005",
+                        "inverse-on-surface": "#313030",
+                        "secondary": "#c8c6c5",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#930007",
+                        "tertiary": "#ffb4aa",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "surface-container-highest": "#353534",
+                        "on-primary-container": "#5c0000",
+                        "surface-variant": "#353534",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "outline": "#b18780",
+                        "primary": "#ffb4a8",
+                        "on-tertiary-container": "#5c0002",
+                        "accent-orange": "#E36414",
+                        "on-secondary": "#303030",
+                        "on-tertiary": "#690003",
+                        "background": "#131313",
+                        "surface-container": "#201f1f",
+                        "on-surface-variant": "#ebbbb4",
+                        "error": "#ffb4ab",
+                        "on-primary": "#690100",
+                        "on-primary-fixed": "#410000",
+                        "on-background": "#e5e2e1",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary-container": "#b7b5b4",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "surface-elevated": "#1A1A1A",
+                        "on-surface": "#e5e2e1",
+                        "outline-variant": "#603e39",
+                        "surface-dim": "#131313",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary-fixed": "#ffdad5",
+                        "primary-container": "#ff5540",
+                        "primary-fixed": "#ffdad4",
+                        "inverse-primary": "#c00100",
+                        "on-tertiary-fixed": "#410001",
+                        "surface-tint": "#ffb4a8",
+                        "on-secondary-fixed": "#1b1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "section-gap": "64px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "title-md": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                        "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .movie-card-gradient { background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.9) 100%); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface border-b border-outline-variant shadow-md docked full-width top-0 sticky z-50 flex justify-between items-center px-margin-mobile py-4 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="font-label-sm text-label-sm text-primary">Serra Talhada - PE</span>
+</div>
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile font-bold text-on-surface">Cine São José</h1>
+<button class="text-on-surface-variant hover:text-primary transition-colors active:opacity-80" id="menu-toggle">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- NavigationDrawer (Mobile Focus) -->
+<nav class="fixed right-0 top-0 h-full w-64 z-[60] bg-surface-container dark:bg-surface-container shadow-lg translate-x-full transition-transform duration-300 rounded-l-xl flex flex-col p-6" id="drawer">
+<div class="flex justify-between items-center mb-8">
+<span class="font-title-md text-title-md text-primary">Menu</span>
+<button id="close-drawer"><span class="material-symbols-outlined">close</span></button>
+</div>
+<ul class="flex flex-col gap-2">
+<li class="p-3 rounded-lg text-on-surface-variant hover:bg-secondary-container transition-colors">
+<a class="flex items-center gap-4 font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">eco</span> Sustentabilidade
+                </a>
+</li>
+<li class="p-3 rounded-lg text-on-surface-variant hover:bg-secondary-container transition-colors">
+<a class="flex items-center gap-4 font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">star</span> Club Cine São José
+                </a>
+</li>
+<li class="p-3 rounded-lg bg-primary-container text-on-primary-container transition-colors">
+<a class="flex items-center gap-4 font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">movie</span> Programação
+                </a>
+</li>
+<li class="p-3 rounded-lg text-on-surface-variant hover:bg-secondary-container transition-colors">
+<a class="flex items-center gap-4 font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">fastfood</span> Bomboniere
+                </a>
+</li>
+<li class="p-3 rounded-lg text-on-surface-variant hover:bg-secondary-container transition-colors">
+<a class="flex items-center gap-4 font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">confirmation_number</span> Comprar Ingresso
+                </a>
+</li>
+<li class="p-3 rounded-lg text-on-surface-variant hover:bg-secondary-container transition-colors">
+<a class="flex items-center gap-4 font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">work</span> Trabalhe Conosco
+                </a>
+</li>
+</ul>
+</nav>
+<div class="fixed inset-0 bg-black/60 z-[55] hidden backdrop-blur-sm" id="drawer-overlay"></div>
+<main class="w-full max-w-container-max mx-auto px-margin-mobile pb-24 md:pb-0">
+<!-- Destaque do Mês -->
+<section class="py-stack-lg mt-4">
+<div class="relative rounded-xl overflow-hidden bg-surface-container shadow-2xl group">
+<div class="aspect-[2/3] md:aspect-[21/9] w-full relative">
+<img alt="O Mandaloriano e Grogu" class="w-full h-full object-cover" data-alt="A high-contrast movie poster for O Mandaloriano e Grogu featuring the iconic silver-helmeted Mandalorian holding the small green Yoda-like creature. The background is a dramatic scene with glowing cinematic lighting and deep charcoal shadows. The image has a premium, professional digital film aesthetic consistent with high-budget sci-fi movies, utilizing deep blacks and sharp highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARG9eGCqPHNpjZODeppLctkUr-Dg0CDJJ_BA0jrxYSUbQTcbl_XQ0beDZz47iSSGAiFrfDjH4EQHTefmHysEHs7P2ZFKV0E2P1Me4DC5-RT4FMsyWAMV1SPPf1TBI17kFUfvMvq2fBMXbhvt5Icckoru5zuE8WuywovUiD-rYiybSEzKH3gerkTjmoqlKjdybi4HQ4wyPTMST7mz-3WjUVJfPi7rTYfjEgEf1N3_zCWNP-VB_iPY8txyd_nAja4WWVJeEcDiNXbwo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6 md:p-12 w-full">
+<div class="mb-4">
+<span class="bg-accent-orange text-white px-2 py-1 rounded font-label-lg text-label-lg">14</span>
+<span class="text-on-surface/80 ml-2 font-label-lg text-label-lg">02h11</span>
+</div>
+<h2 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-white mb-6">O Mandaloriano e Grogu</h2>
+<div class="flex flex-col md:flex-row gap-4">
+<button class="bg-primary hover:opacity-90 text-on-primary font-label-lg text-label-lg px-8 py-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">shopping_cart</span>
+                                Comprar ingressos
+                            </button>
+<button class="bg-surface-elevated/80 border border-outline hover:border-primary text-on-surface font-label-lg text-label-lg px-8 py-4 rounded-lg backdrop-blur-md transition-all active:scale-95">
+                                Ver programação
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Stats Bar -->
+<div class="flex justify-between items-center mt-4 px-2">
+<div class="flex items-center gap-4">
+<div class="flex -space-x-2">
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0UvyMdYM59-2dx-CyHLFyLxM7K5SFeKxfVFO3WXeO30qsFniADT4pKaTuLw54yBdAmL-GRG9RDkPcqYIMcC6vMsmNGm7MeeqJ_NxMBG9Mp2EZiY6xOaflB2Ra8DD72hUMaeitVNMnBdBP8zdrRelGmWTZQ4FJVDqtncdvPKO6lc5LiLkaaL7O3mVIhF2uGHDmFM9NGRJyGNwJSiITKP9TEj_7OBynvD4tuiVN-X32aPGoRi23EargbAOn8ev4S4TYipOUj1vl79g"/>
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm_J-opz51QcDEIWE0MyUeLhOEkFLhnfC4FiH7-q3hnovfUQO7c03OXGiw1aA3cA5rSgLInJWgp1TL8gKorfc4jPquVPXvtyy9l00BIaShHJYrAjwe6znLoTZrvx0CFjFE10SVF7Iw6UvVzTOH-qYVSVDcRLxeT-mRPXUE-v1jFVmxC8pnKNnGaNZuu8mn7o_rNgkXg0HPAQ3w6xh9xcsf8E_XrbL-NlNGm5KKFcgdAkpXJwvR4KR9GJABoXrQw-ySquXtKPWpUQ4"/>
+<img alt="User" class="w-8 h-8 rounded-full border-2 border-surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMgQhRLMTyto5a866JLFaPCh69qqGb0yDP21wzbpyucQwAWORc2zWjcf_S9v2psUFKfUn2kGQc2MNUfBkHdGHMinEBGfRkQU5iY6QBZ1zqFJbfmAqxZmfAe7W4m1CPH5Pkak5OiIMYMin0G5vROJ5mbiCPq6sRGBC6XuBIMaPBTMYOY3CiWsj6AfxxTNeTTkzf1p14gx1qA-emeZ1SjwdtC8WahLwz-jJN2dUB9_sFI5WABPP_lGMSKLE8bPFARwTZia2drqIyTdc"/>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Já viram 5</p>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">comment</span>
+<span class="font-label-sm text-label-sm">1</span>
+</button>
+<div class="flex text-accent-orange">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Os mais avaliados -->
+<section class="py-section-gap">
+<div class="flex justify-between items-end mb-stack-lg">
+<div>
+<div class="w-12 h-1 bg-primary mb-2"></div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Os mais avaliados</h2>
+</div>
+<a class="text-primary font-label-lg text-label-lg flex items-center gap-1 hover:underline" href="#">
+                    Ver todos <span class="material-symbols-outlined">chevron_right</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-elevated p-4 rounded-xl flex gap-4 items-center group hover:bg-surface-container transition-all">
+<img alt="Mandalorian" class="w-20 aspect-[2/3] object-cover rounded shadow-md group-hover:scale-105 transition-transform" data-alt="A vertical movie poster of the Mandalorian featuring dark armor and warm cinematic lighting reflecting off the silver helmet. The character is set against a starry night sky background. High contrast cinematic aesthetic with deep blacks and vibrant glowing accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk-Fonm65nB99xHXOhJJcVGxIT5Kuxg-9KmkfUWVbePiRZjkzGzy1SXluqQvc7XEj52IFydTwJQfyAqLlwNBkCIQPqF0LGyU49u-_cZkzBs7eBT3YkueqgBxorZ3rCMPKn7KIYO8ffrWqC8EM33RFTkTLtkeriVnEIbKB7Ss4X96s6jy2L1DsFz5oFHbduQQFAtX_mqNow1h_YrlN7bUgsHrepPDtfiRrP1HrFzLECmvSF-GEnYt0ooP93uRpRr0IeUgIjNxBMaaI"/>
+<div class="flex-1">
+<h3 class="font-title-md text-title-md mb-1">O Mandaloriano</h3>
+<div class="flex items-center gap-4">
+<div class="relative w-12 h-12">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-rating-arc" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="0" stroke-width="4"></circle>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-bold text-sm">5.0</span>
+</div>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Nota Geral</span>
+</div>
+</div>
+<button class="bg-surface-container border border-outline-variant hover:border-primary text-xs px-4 py-2 rounded-lg transition-colors">Avaliar</button>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-elevated p-4 rounded-xl flex gap-4 items-center group hover:bg-surface-container transition-all">
+<img alt="Hit Me Hard and Soft" class="w-20 aspect-[2/3] object-cover rounded shadow-md group-hover:scale-105 transition-transform" data-alt="A stylized music documentary poster featuring high contrast lighting, vibrant blue and red color shifts. The visual style is abstract and modern with a focus on deep shadows and electric highlights, creating a dark, moody, premium cinematic vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0uZQagkxcMEH40C7kPO9Snz0mVwdM33FJC0Ld2v_YHoMdIwUYPwGJjQEn3T0w_KDtSXwyKDN4SQEluFXxx36HdNpaoS0ba3dfPi4MlU374-wc_t0h1Q_8tj7WnlGHVayLwgIvWxDwrJ8CsEHl8Di59WE6r2xkr1m2OIqEKJbQUmC10kmDoBKX3GC5H18brvo9e9GsYQb7Og4grPyatyhHM0u0gcGy0zPA21ZTWS5kD6xCwa4Dur3PRTPsdMCuJxm_3EBzuRsIrm0"/>
+<div class="flex-1">
+<h3 class="font-title-md text-title-md mb-1">Hit Me Hard</h3>
+<div class="flex items-center gap-4">
+<div class="relative w-12 h-12">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-rating-arc" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="0" stroke-width="4"></circle>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-bold text-sm">5.0</span>
+</div>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Nota Geral</span>
+</div>
+</div>
+<button class="bg-surface-container border border-outline-variant hover:border-primary text-xs px-4 py-2 rounded-lg transition-colors">Avaliar</button>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-elevated p-4 rounded-xl flex gap-4 items-center group hover:bg-surface-container transition-all">
+<img alt="Mortal Kombat 2" class="w-20 aspect-[2/3] object-cover rounded shadow-md group-hover:scale-105 transition-transform" data-alt="Action movie poster for Mortal Kombat 2 featuring an ensemble cast of warriors in a dramatic glowing arena. Intense orange and dark grey lighting. High fidelity digital painting style with sharp details on armor and energy effects. Deep charcoal shadows define the scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcDJuBMPUhFqDbepHM_X122dk7tepLyzE0YCC6w8BOzCEJVVa_Jjk-yIRR_aqA_ScpMsqK_KYCtfywu9nn-ivoYUB4upzSEEiZ4FwryDyeF76JO4M5sULmQXFUE72RtmMAI41lYI-bS4-xxnwg4xszpZYQ5-lZwQh-mCf_CBoDSoJkG61cALk9j9GNXg0VGuLRmfOJAFU9ktyYoRjP6RUzwsClKm1G_5_u0fNI5doRJtDMFmdIOKJZgxO6RETkw4-RUVA2aPewCfE"/>
+<div class="flex-1">
+<h3 class="font-title-md text-title-md mb-1">Mortal Kombat 2</h3>
+<div class="flex items-center gap-4">
+<div class="relative w-12 h-12">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-rating-arc" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="15" stroke-width="4"></circle>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-bold text-sm">4.4</span>
+</div>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Nota Geral</span>
+</div>
+</div>
+<button class="bg-surface-container border border-outline-variant hover:border-primary text-xs px-4 py-2 rounded-lg transition-colors">Avaliar</button>
+</div>
+</div>
+</section>
+<!-- Últimas Notícias -->
+<section class="py-section-gap">
+<div class="mb-stack-lg">
+<div class="w-12 h-1 bg-primary mb-2"></div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Últimas notícias</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Fique por dentro de tudo que rola no mundo do cinema!</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<article class="bg-surface-container rounded-xl overflow-hidden shadow-lg hover:-translate-y-1 transition-transform group">
+<div class="aspect-video relative overflow-hidden">
+<img alt="Mestres do Universo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A dynamic cinematic image representing the Master of the Universe universe. A heroic figure standing on a mountain peak during a storm with purple lightning. High contrast digital illustration with deep shadows and glowing magical elements in vibrant red and white." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA8c_UEft7T-hJMZJ3jhUD5OR2epLPvuyI55jIHL37kpEyXoXScl9yl9-EUTkhWIaXuEjtkrquetirPPcUUScw6nWCzHTCxFxufoJXTjms9QTR_kKj9C5AH6mhRqa5C1pN7qsczFhXNGk9GBQsMW6i_1nb4rr5ECCWx04Q8Pb6dFuDZ7mTOwDSdseXnZAnmA9yVtfpnTlzt11SITtwcDPphjrdUWIx7DeD8tDQIYF0SJFlMF9G46hOhVIYdVKRm0RCDPJvQkAasFk"/>
+</div>
+<div class="p-6">
+<span class="text-primary font-label-sm text-label-sm">26.05.2026</span>
+<h3 class="font-title-md text-title-md mt-2 text-on-surface leading-tight">Cine São José libera venda de ingressos para Mestres do Universo</h3>
+</div>
+</article>
+<article class="bg-surface-container rounded-xl overflow-hidden shadow-lg hover:-translate-y-1 transition-transform group">
+<div class="aspect-video relative overflow-hidden">
+<img alt="Todo Mundo em Panico" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A suspenseful yet comedic movie production scene with a group of diverse actors reacting in shock. Dark moody lighting characteristic of horror films but with bright vibrant color highlights. High professional resolution, deep blacks, and rich cinematic depth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBusHoCgpeNHV_5WDrqPtUHFNgtQWTEFIgoF22qghqk0aU_NODM6uRbwm00xrffPuMowIH7g8up2MOtd9COGqsylRfswdApAJZoUfY9S9AmwX_34Wq927AXshQnNTq3_8cicihFQ-0fS-5B_3NN1doiP6q3HCKrqtH6OJ5WLyi2aCbc6BW_FzlM3YmBRaQVZKU16wQ1qbdlc7XERhhZZ1xW3Z0j_t3cWKJ7f_c-roy19LR4cbVlIWYxU17PuUKeAQTmF7JQ3r0q5GI"/>
+</div>
+<div class="p-6">
+<span class="text-primary font-label-sm text-label-sm">14.05.2026</span>
+<h3 class="font-title-md text-title-md mt-2 text-on-surface leading-tight">Cine São José libera venda de ingressos para Todo Mundo em Pânico 6</h3>
+</div>
+</article>
+<article class="bg-surface-container rounded-xl overflow-hidden shadow-lg hover:-translate-y-1 transition-transform group">
+<div class="aspect-video relative overflow-hidden">
+<img alt="Mandaloriano" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A grand sci-fi landscape featuring advanced technology and a solitary armored figure. The sky is filled with nebulae and distant planets. Aesthetic follows a high-contrast corporate modern look with deep charcoals and bright red energy signatures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARa7ibgrbFHrjgMC2jwoOLesHw13QuEmk_Od7gDXip-syOyNiO1VcUN7jYW6ekjJRmMeO1Xhp1Dl6GzVUOG_3UaWPAqkHCC8BPHpWDTAMldaWI2nEA-ceUSX7sz4DaJGSw3d7ZGGn3SJ8_yUVrostfZe44P62_IC8aDn54TRjs1yertZV6cB_WoIYe9uvxz7AFNtovfAYZURblQ_nJoQqka7kzI5BUzcCq3cGloPLufSdGW3icXmC9XKOxhpHTw6ClrA0C9__-9YA"/>
+</div>
+<div class="p-6">
+<span class="text-primary font-label-sm text-label-sm">14.05.2026</span>
+<h3 class="font-title-md text-title-md mt-2 text-on-surface leading-tight">Cine São José libera venda antecipada de O Mandaloriano e Grogu</h3>
+</div>
+</article>
+</div>
+</section>
+<!-- Nossos Serviços -->
+<section class="py-section-gap mb-12">
+<div class="mb-stack-lg">
+<div class="w-12 h-1 bg-primary mb-2"></div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Nossos Serviços</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">O Cine São José oferece uma gama de serviços para sua empresas, funcionários ou entretenimento em grupo.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Servico 1 -->
+<div class="bg-surface-elevated rounded-xl overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="aspect-video overflow-hidden">
+<img alt="Aluguel de sala" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A modern luxury cinema auditorium with plush red seating and ambient dim lighting. The screen is large and glowing. The overall atmosphere is premium and sophisticated with high contrast between deep shadows and the bright screen light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAINRlD0sM3N5h8cw9A4NB-StQYGvAcUiciTy7D1qUo9fKU-ocZ9CLsQLA5fjAXMFPvDfeYDxwKSBlFjh9pxRE3mU8tV-ADS0np6QP_08FUXGqTgM4bEB9bZTh1e5Quhg2mGPmtPr9W_AX2ES3LTYsZSCkcMVf0gIvMBCoWGwD5xSUr-8Ffz2leUI09RZbTC9wPB9dut_fQwz3qhl9_YZj4b_ftTZliTM2Tym6J8aeszfxPIu1aJAv-aOwVDjXGyyEdsRVv-pK5UJM"/>
+</div>
+<div class="p-5">
+<div class="w-8 h-1 bg-primary mb-3"></div>
+<h3 class="font-title-md text-title-md text-on-surface mb-3">Aluguel de sala e Ingresso corporativo</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">O evento da sua empresa tem sucesso garantido se contar com uma ótima infraestrutura. Isso, e muito mais, na rede Cine São José...</p>
+</div>
+</div>
+<!-- Servico 2 -->
+<div class="bg-surface-elevated rounded-xl overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="aspect-video overflow-hidden">
+<img alt="Cine Escola" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A classroom environment inside a modern cinema theatre with kids wearing 3D glasses, looking amazed at the screen. The scene is lit by the cinematic glow from the screen. Soft high-fidelity look with rich textures and deep blacks." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC26mAP5IHxDcoKxaimTyPhPlu2mTKfmfAFjoc5kRsIr7NVtJldeBt-d1icPHPFyouuOXIdouhsWRd1i6Am-akbo5Lzb0pyj5YJsvMXzzIQI7NX73hVIPfuSdgI65APbTlnnk6DwVayM0n7ep3UpIeP04P9ft4AgNH24Wa-DBEePd-ylzQF559_UD1zpPgPTsZHTjA1yTtQL2B0s8060vfI22DUVJdf4k9AMQ43ui7Yealv4KsxRm0BCHaZk0Q8PJNM3jLmskpmGmk"/>
+</div>
+<div class="p-5">
+<div class="w-8 h-1 bg-primary mb-3"></div>
+<h3 class="font-title-md text-title-md text-on-surface mb-3">Cine Escola</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">O cinema comprovadamente é uma excelente alternativa para complementar o ensino de sala de aula. Aliando diversão e cultura...</p>
+</div>
+</div>
+<!-- Servico 3 -->
+<div class="bg-surface-elevated rounded-xl overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="aspect-video overflow-hidden">
+<img alt="Anuncie" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A close-up of a giant cinema screen showing high-impact corporate advertising. The audience is visible in silhouette at the bottom. High contrast between the bright screen and the total black of the auditorium. Professional and clean corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNIrSU521ARPbdb_QbaYDfdYPBXy1U1iMRYL5lvOMATmLKdUMSihRCbrre7mT6Jg1II3TVqSsnCI5kX8_cQYEq_sPvDgw74gEArQoQV7GJrKtyGhSR0vJXAIDS0W3_xjPwohQsXcjzmI4JOw7n3uP9wiwasfWkG2IJw9ojTSAw2ys1Os53jl6tiIARTg3OgWb54RHKMCN2U2W31sWlNwpgsnrvSS9Td0aYDjun4_uXpCtlX1ZGGdctXhzqPiKmIELt_dqNNTvPpUg"/>
+</div>
+<div class="p-5">
+<div class="w-8 h-1 bg-primary mb-3"></div>
+<h3 class="font-title-md text-title-md text-on-surface mb-3">Anuncie no Telão</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">Antes dos maiores sucessos de Hollywood, quem aparece na telona é a sua empresa. Isso é o que oferece o Cinemídia.</p>
+</div>
+</div>
+<!-- Servico 4 -->
+<div class="bg-surface-elevated rounded-xl overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="aspect-video overflow-hidden">
+<img alt="Aniversario" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A vibrant birthday party celebration in a cinema foyer area with balloons, a cake, and happy children. The lighting is colorful and warm. High contrast aesthetic with deep blacks and bright primary color pops, maintaining a high-fidelity cinematic feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBTHTEnMl61lho1Y6St3ApkAbYBCEs1OXlD46B7MpT_-QiCkbiusJ1Ii4KuMPteL6zklyvQoBtjh3NMWiCvsQIAOHDuPF5xoq8xQk077gfSCDoPDD1FytuehoCU75fGmARtofv86RwiXvH9kkxp9lGC8E_HDsLQu9iVehzATUdMqrJbdOVOpM9Rqm4uOgrQOOmuJQGUBjmuSIuELzyrFv6ixoYc8a10EnNyGm3-Myg7FKCckAwrLv5dIkVV6BfR-Avr6e4R6y9Ri4"/>
+</div>
+<div class="p-5">
+<div class="w-8 h-1 bg-primary mb-3"></div>
+<h3 class="font-title-md text-title-md text-on-surface mb-3">Cine São Joséniversário</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">Comemore o aniversário de seus filhos em um ambiente seguro, amplo e assistindo ao filme de sua preferência.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant py-section-gap">
+<div class="max-w-container-max mx-auto px-margin-mobile flex flex-col gap-stack-lg">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<div class="col-span-2 md:col-span-1">
+<h2 class="font-headline-lg text-on-surface font-bold mb-6">Cine São José</h2>
+<div class="flex flex-col gap-4">
+<a class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-all" href="https://www.facebook.com/cinesaojose">
+<span class="material-symbols-outlined text-primary">social_leaderboard</span> Facebook.cinesaojose
+                        </a>
+<a class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-primary">alternate_email</span> Instagram.cinesaojose
+                        </a>
+<a class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-primary">play_circle</span> Youtube.cinesaojose
+                        </a>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Institucional</h3>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Página Inicial</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Sobre o Cine São José</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Programação</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Promoções</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Bomboniere</a>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Ajuda</h3>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Avaliações de Filmes</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Central de Atendimento</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Notícias</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Meia entrada</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Classificação Indicativa</a>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Contato</h3>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all" href="#">Trabalhe Conosco</a>
+<a class="bg-primary/10 text-primary border border-primary/20 px-4 py-2 rounded-lg font-body-sm text-body-sm text-center" href="#">Acessibilidade</a>
+<div class="mt-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">mail</span>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Email Contato</p>
+<p class="text-body-sm font-bold">sac@cinesaojose.com.br</p>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant pt-stack-lg flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex gap-4">
+<img alt="Google Play" class="h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQH-okZucujnFK1hUjOalmWpnXOHJ4BruLS6DxAOlP-ND4OJ-hxSx7BUrRDkffH7oqBS0UBf5Lw3J3QjzzO2RnVLdyoDpaLanIKJ9E3mI34U2lCorr2g_BWQJjNRe8MErJYf3WkK_DR7S-GzpbO4mNYw5HpD3ojEh9qZvl4XdWwpBrcQZD5g0kn9XJvtHx5T_ExwYlOl50wuCORhGyaeMhlHjWzRmHN8B4Xyra-tc82nSeiQh6-Pn1GmxXQb4J7JhIu4qFAOsLFFo"/>
+<img alt="App Store" class="h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwlriXg9aUvU9Ow4TvGpwdcX92FKEhjMEGZaZ51-540brJOPJvGVPF7G7MbW2c9P4sahrqeAOBDn9qyJLOhzpB2MbI5tkmR-UA1fK0YGW6uXwJPp4b01mrdfF4TeDufrO_lDinq2oW7K0kvdVLkC7cOH5nz_CvrQ5tY9Ho9MnQj6j5Og8pAxkqRP0F7nHb0xlx5Q0pq9fqGiJnGfw7m_S_CAHTbb4o2AsutKPe-5YGAoUoVJr8TYnLLB01N5tqLEbCBLPzrzra5ZY"/>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center">© 2026 Rede Cine São José. Todos os direitos reservados.</p>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container-low dark:bg-surface-container-low border-t border-outline-variant shadow-lg flex justify-around py-2 md:hidden">
+<a class="flex flex-col items-center justify-center text-primary active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Início</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">theaters</span>
+<span class="font-label-sm text-label-sm">Filmes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">local_activity</span>
+<span class="font-label-sm text-label-sm">Ingressos</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Perfil</span>
+</a>
+</nav>
+<script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeDrawer = document.getElementById('close-drawer');
+        const drawer = document.getElementById('drawer');
+        const overlay = document.getElementById('drawer-overlay');
+
+        function toggleDrawer() {
+            drawer.classList.toggle('translate-x-full');
+            overlay.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        menuToggle.addEventListener('click', toggleDrawer);
+        closeDrawer.addEventListener('click', toggleDrawer);
+        overlay.addEventListener('click', toggleDrawer);
+
+        // Simple scroll parallax effect for the hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('section:first-of-type img');
+            if (heroImage) {
+                heroImage.style.transform = `translateY(${scrolled * 0.15}px)`;
+            }
+        });
+    </script>
+</body></html>
