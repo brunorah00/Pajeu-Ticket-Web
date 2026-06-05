@@ -1,11 +1,19 @@
 'use client';
 
 import { useState } from 'react';
+import type { AuthArea } from '@/lib/auth/protected-areas';
+import { AUTH_AREA_COPY } from '@/lib/auth/protected-areas';
 import { useAuth } from './AuthContext';
 
 type Tab = 'login' | 'cadastro';
 
-export function AuthModal() {
+type AuthModalProps = {
+  area?: AuthArea;
+  onClose?: () => void;
+};
+
+export function AuthModal({ area = 'ingressos', onClose }: AuthModalProps) {
+  const copy = AUTH_AREA_COPY[area];
   const { login, cadastro } = useAuth();
   const [tab, setTab] = useState<Tab>('login');
   const [loading, setLoading] = useState(false);
@@ -69,49 +77,64 @@ export function AuthModal() {
       aria-modal="true"
       aria-labelledby="auth-modal-title"
     >
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" aria-hidden />
+      <div
+        className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+        aria-hidden
+        onClick={onClose}
+        role="presentation"
+      />
 
       <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-outline-variant bg-surface-container shadow-2xl">
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-3 top-3 z-10 rounded-lg p-1 text-on-surface-variant transition hover:bg-surface hover:text-on-surface"
+            aria-label="Fechar"
+          >
+            <span className="material-symbols-outlined">close</span>
+          </button>
+        )}
         <div className="border-b border-outline-variant bg-surface px-6 py-5 text-center">
           <p className="text-label-lg font-label-lg text-primary">Cine São José</p>
           <h2 id="auth-modal-title" className="mt-1 font-headline-lg-mobile text-headline-lg-mobile text-on-surface">
-            Acesse sua conta
+            {copy.title}
           </h2>
-          <p className="mt-2 text-body-sm text-on-surface-variant">
-            É necessário entrar ou criar uma conta para usar o portal.
-          </p>
+          <p className="mt-2 text-body-sm text-on-surface-variant">{copy.subtitle}</p>
         </div>
 
-        <div className="flex border-b border-outline-variant">
-          <button
-            type="button"
-            onClick={() => {
-              setTab('login');
-              setErro(null);
-            }}
-            className={`flex-1 py-3 text-label-lg font-label-lg transition-colors ${
-              tab === 'login'
-                ? 'border-b-2 border-primary-container text-on-surface'
-                : 'text-on-surface-variant hover:text-on-surface'
-            }`}
-          >
-            Entrar
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setTab('cadastro');
-              setErro(null);
-            }}
-            className={`flex-1 py-3 text-label-lg font-label-lg transition-colors ${
-              tab === 'cadastro'
-                ? 'border-b-2 border-primary-container text-on-surface'
-                : 'text-on-surface-variant hover:text-on-surface'
-            }`}
-          >
-            Criar conta
-          </button>
-        </div>
+        {area !== 'painel' && (
+          <div className="flex border-b border-outline-variant">
+            <button
+              type="button"
+              onClick={() => {
+                setTab('login');
+                setErro(null);
+              }}
+              className={`flex-1 py-3 text-label-lg font-label-lg transition-colors ${
+                tab === 'login'
+                  ? 'border-b-2 border-primary-container text-on-surface'
+                  : 'text-on-surface-variant hover:text-on-surface'
+              }`}
+            >
+              Entrar
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setTab('cadastro');
+                setErro(null);
+              }}
+              className={`flex-1 py-3 text-label-lg font-label-lg transition-colors ${
+                tab === 'cadastro'
+                  ? 'border-b-2 border-primary-container text-on-surface'
+                  : 'text-on-surface-variant hover:text-on-surface'
+              }`}
+            >
+              Criar conta
+            </button>
+          </div>
+        )}
 
         <div className="p-6">
           {tab === 'login' ? (

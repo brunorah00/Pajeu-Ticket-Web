@@ -18,11 +18,7 @@ export function RoleGuard({ children, allow, adminOnlyPaths = ['/painel/funciona
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!ready) return;
-    if (!isAuthenticated || !user) {
-      router.replace('/');
-      return;
-    }
+    if (!ready || !isAuthenticated || !user) return;
     if (!allow.includes(user.role)) {
       router.replace('/');
       return;
@@ -32,12 +28,12 @@ export function RoleGuard({ children, allow, adminOnlyPaths = ['/painel/funciona
     }
   }, [ready, isAuthenticated, user, allow, adminOnlyPaths, pathname, router]);
 
-  if (!ready || !user || !allow.includes(user.role)) {
-    return (
-      <div className="flex min-h-[40vh] items-center justify-center px-margin-mobile">
-        <p className="text-body-md text-on-surface-variant">Carregando painel…</p>
-      </div>
-    );
+  if (!ready || !isAuthenticated || !user) {
+    return null;
+  }
+
+  if (!allow.includes(user.role)) {
+    return <PainelAccessDenied />;
   }
 
   if (user.role !== 'ADMIN' && adminOnlyPaths.some((p) => pathname.startsWith(p))) {

@@ -9,7 +9,7 @@ import type { DashboardData, Produto } from '@/lib/api/types';
 import { CATEGORIAS_BOMBONIERE } from '@/lib/bomboniere/categorias';
 import { formatMoeda } from '@/lib/utils/format';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
@@ -20,21 +20,85 @@ function StatCard({ label, value }: { label: string; value: string }) {
   );
 }
 
+const estoqueColGroup = (
+  <colgroup>
+    <col className="w-[4.5rem]" />
+    <col />
+    <col className="w-[8.5rem]" />
+    <col className="w-[7.5rem]" />
+    <col className="w-[6.5rem]" />
+  </colgroup>
+);
+
 function EstoqueRow({ p }: { p: Produto }) {
   const baixo = p.quantidadeEstoque < p.estoqueMinimo;
   return (
-    <tr className="border-t border-outline-variant/60">
-      <td className="py-3 pr-4">
+    <tr className="border-t border-outline-variant/60 align-middle">
+      <td className="px-4 py-3">
         <ProdutoThumb nome={p.nome} urlImagem={p.urlImagem} className="size-12" />
       </td>
-      <td className="py-3 pr-4 text-body-md text-on-surface">{p.nome}</td>
-      <td className="py-3 pr-4 text-body-sm text-on-surface-variant">{p.categoria}</td>
-      <td className={`py-3 pr-4 text-body-md ${baixo ? 'font-semibold text-error' : 'text-on-surface'}`}>
+      <td className="px-4 py-3 text-body-md text-on-surface">{p.nome}</td>
+      <td className="px-4 py-3 text-right text-body-sm tabular-nums text-on-surface-variant">
+        {p.categoria}
+      </td>
+      <td
+        className={`px-4 py-3 text-right text-body-md tabular-nums ${baixo ? 'font-semibold text-error' : 'text-on-surface'}`}
+      >
         {p.quantidadeEstoque}
         <span className="text-on-surface-variant"> / {p.estoqueMinimo}</span>
       </td>
-      <td className="py-3 text-body-md text-on-surface">{formatMoeda(Number(p.preco))}</td>
+      <td className="px-4 py-3 text-right text-body-md tabular-nums text-on-surface">
+        {formatMoeda(Number(p.preco))}
+      </td>
     </tr>
+  );
+}
+
+function RankingTable({
+  title,
+  emptyLabel,
+  rows,
+}: {
+  title: string;
+  emptyLabel: string;
+  rows: { key: string | number; nome: string; valor: string | number }[];
+}) {
+  return (
+    <section className="min-w-0">
+      <h2 className="text-title-md font-title-md text-on-surface">{title}</h2>
+      <div className="mt-3 overflow-x-auto rounded-xl border border-outline-variant bg-surface-container/40">
+        <table className="w-full min-w-[280px] table-fixed text-left">
+          <colgroup>
+            <col />
+            <col className="w-[5.5rem]" />
+          </colgroup>
+          <thead>
+            <tr className="border-b border-outline-variant/80 text-label-sm text-on-surface-variant">
+              <th className="px-4 py-3 font-label-sm">Nome</th>
+              <th className="px-4 py-3 text-right font-label-sm">Qtd.</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.length === 0 ? (
+              <tr>
+                <td colSpan={2} className="px-4 py-4 text-body-sm text-on-surface-variant">
+                  {emptyLabel}
+                </td>
+              </tr>
+            ) : (
+              rows.map((row) => (
+                <tr key={row.key} className="border-t border-outline-variant/60 align-middle">
+                  <td className="px-4 py-3 text-body-md text-on-surface">{row.nome}</td>
+                  <td className="px-4 py-3 text-right text-body-md font-medium tabular-nums text-primary">
+                    {row.valor}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </section>
   );
 }
 
@@ -145,32 +209,50 @@ export default function PainelDashboardPage() {
             </Link>
           </p>
         ) : (
-          <div className="space-y-6 overflow-x-auto">
-            {CATEGORIAS_BOMBONIERE.map((cat) => {
-              const itens = estoquePorCategoria.get(cat) ?? [];
-              if (itens.length === 0) return null;
-              return (
-                <div key={cat}>
-                  <h3 className="mb-2 text-label-lg font-label-lg text-primary">{cat}</h3>
-                  <table className="w-full min-w-[520px] text-left">
-                    <thead>
-                      <tr className="text-label-sm text-on-surface-variant">
-                        <th className="pb-2 pr-4 font-label-sm"> </th>
-                        <th className="pb-2 pr-4 font-label-sm">Produto</th>
-                        <th className="pb-2 pr-4 font-label-sm">Categoria</th>
-                        <th className="pb-2 pr-4 font-label-sm">Estoque</th>
-                        <th className="pb-2 font-label-sm">Preço</th>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[640px] table-fixed text-left">
+              {estoqueColGroup}
+              <thead>
+                <tr className="border-b border-outline-variant/80 text-label-sm text-on-surface-variant">
+                  <th className="px-4 py-3 font-label-sm" scope="col">
+                    <span className="sr-only">Imagem</span>
+                  </th>
+                  <th className="px-4 py-3 font-label-sm" scope="col">
+                    Produto
+                  </th>
+                  <th className="px-4 py-3 text-right font-label-sm" scope="col">
+                    Categoria
+                  </th>
+                  <th className="px-4 py-3 text-right font-label-sm" scope="col">
+                    Estoque
+                  </th>
+                  <th className="px-4 py-3 text-right font-label-sm" scope="col">
+                    Preço
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {CATEGORIAS_BOMBONIERE.map((cat) => {
+                  const itens = estoquePorCategoria.get(cat) ?? [];
+                  if (itens.length === 0) return null;
+                  return (
+                    <Fragment key={cat}>
+                      <tr className="bg-surface-container/60">
+                        <td
+                          colSpan={5}
+                          className="px-4 py-2.5 text-label-lg font-label-lg text-primary"
+                        >
+                          {cat}
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
                       {itens.map((p) => (
                         <EstoqueRow key={p.id} p={p} />
                       ))}
-                    </tbody>
-                  </table>
-                </div>
-              );
-            })}
+                    </Fragment>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         )}
       </section>
@@ -178,60 +260,52 @@ export default function PainelDashboardPage() {
       {data.produtosComEstoqueBaixo.length > 0 && (
         <section>
           <h2 className="text-title-md font-title-md text-on-surface">Alertas de estoque baixo</h2>
-          <ul className="mt-3 space-y-2">
-            {data.produtosComEstoqueBaixo.map((p) => (
-              <li
-                key={p.id}
-                className="flex justify-between rounded-lg bg-error-container/15 px-4 py-3 text-body-md"
-              >
-                <span>{p.nome}</span>
-                <span className="text-error">
-                  {p.quantidadeEstoque} / mín. {p.estoqueMinimo}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-3 overflow-x-auto rounded-xl border border-error/30 bg-error-container/10">
+            <table className="w-full min-w-[280px] table-fixed text-left">
+              <colgroup>
+                <col />
+                <col className="w-[8rem]" />
+              </colgroup>
+              <thead>
+                <tr className="border-b border-error/20 text-label-sm text-on-surface-variant">
+                  <th className="px-4 py-3 font-label-sm">Produto</th>
+                  <th className="px-4 py-3 text-right font-label-sm">Estoque</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.produtosComEstoqueBaixo.map((p) => (
+                  <tr key={p.id} className="border-t border-error/15 align-middle">
+                    <td className="px-4 py-3 text-body-md text-on-surface">{p.nome}</td>
+                    <td className="px-4 py-3 text-right text-body-md tabular-nums text-error">
+                      {p.quantidadeEstoque} / mín. {p.estoqueMinimo}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       )}
 
-      <div className="grid gap-8 md:grid-cols-2 xl:gap-10">
-        <section>
-          <h2 className="text-title-md font-title-md text-on-surface">Produtos mais vendidos</h2>
-          <ul className="mt-3 space-y-2">
-            {data.produtosMaisVendidos.length === 0 ? (
-              <li className="text-body-sm text-on-surface-variant">Sem vendas registradas.</li>
-            ) : (
-              data.produtosMaisVendidos.map((p) => (
-                <li
-                  key={p.produtoId}
-                  className="flex justify-between rounded-lg bg-surface-container px-4 py-3"
-                >
-                  <span>{p.nome}</span>
-                  <span className="text-primary">{p.quantidadeVendida}</span>
-                </li>
-              ))
-            )}
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="text-title-md font-title-md text-on-surface">Sessões mais vendidas</h2>
-          <ul className="mt-3 space-y-2">
-            {data.sessoesMaisVendidas.length === 0 ? (
-              <li className="text-body-sm text-on-surface-variant">Sem vendas registradas.</li>
-            ) : (
-              data.sessoesMaisVendidas.map((s) => (
-                <li
-                  key={s.sessaoId}
-                  className="flex justify-between rounded-lg bg-surface-container px-4 py-3"
-                >
-                  <span>{s.filmeTitulo}</span>
-                  <span className="text-primary">{s.quantidadeVendida}</span>
-                </li>
-              ))
-            )}
-          </ul>
-        </section>
+      <div className="grid items-start gap-8 md:grid-cols-2 xl:gap-10">
+        <RankingTable
+          title="Produtos mais vendidos"
+          emptyLabel="Sem vendas registradas."
+          rows={data.produtosMaisVendidos.map((p) => ({
+            key: p.produtoId,
+            nome: p.nome,
+            valor: p.quantidadeVendida,
+          }))}
+        />
+        <RankingTable
+          title="Sessões mais vendidas"
+          emptyLabel="Sem vendas registradas."
+          rows={data.sessoesMaisVendidas.map((s) => ({
+            key: s.sessaoId,
+            nome: s.filmeTitulo,
+            valor: s.quantidadeVendida,
+          }))}
+        />
       </div>
     </div>
   );

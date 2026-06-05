@@ -8,8 +8,15 @@ import type { UserRole } from '@/lib/auth/types';
 
 const links = [
   { href: '/painel/dashboard', label: 'Dashboard', icon: 'dashboard', roles: ['ADMIN', 'FUNCIONARIO'] as const },
-  { href: '/painel/filmes/novo', label: 'Novo filme', icon: 'movie', roles: ['ADMIN', 'FUNCIONARIO'] as const },
+  { href: '/painel/filmes/novo', label: 'Filmes', icon: 'movie', roles: ['ADMIN', 'FUNCIONARIO'] as const },
+  {
+    href: '/painel/sessoes',
+    label: 'Sessões',
+    icon: 'schedule',
+    roles: ['ADMIN', 'FUNCIONARIO'] as const,
+  },
   { href: '/painel/bomboniere', label: 'Bomboniere', icon: 'fastfood', roles: ['ADMIN', 'FUNCIONARIO'] as const },
+  { href: '/painel/pedidos', label: 'Pedidos', icon: 'receipt_long', roles: ['ADMIN', 'FUNCIONARIO'] as const },
   {
     href: '/painel/funcionarios',
     label: 'Funcionários',

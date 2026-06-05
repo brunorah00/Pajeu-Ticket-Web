@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { resolveUploadUrl } from '@/lib/api/media';
 
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/webp'] as const;
 const ACCEPT_ATTR = ACCEPTED_TYPES.join(',');
@@ -16,6 +17,9 @@ export type PosterUploadProps = {
   onValidationError?: (message: string | null) => void;
   titulo?: string;
   dica?: string;
+  /** Cartaz já salvo no servidor (modo edição). */
+  existingImageUrl?: string | null;
+  existingAlt?: string;
 };
 
 function formatFileSize(bytes: number): string {
@@ -42,6 +46,8 @@ export function PosterUpload({
   onValidationError,
   titulo = 'Poster do filme',
   dica = 'Proporção ideal 2:3 (pôster de cinema). Formatos JPEG, PNG ou WEBP.',
+  existingImageUrl,
+  existingAlt = 'Poster atual',
 }: PosterUploadProps) {
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -50,6 +56,8 @@ export function PosterUpload({
   const [localError, setLocalError] = useState<string | null>(null);
 
   const displayError = externalError ?? localError;
+  const savedSrc = existingImageUrl ? resolveUploadUrl(existingImageUrl) : null;
+  const previewSrc = previewUrl ?? savedSrc;
 
   useEffect(() => {
     if (!value) {
@@ -136,12 +144,12 @@ export function PosterUpload({
         aria-describedby={displayError ? `${inputId}-error` : `${inputId}-hint`}
       />
 
-      {value && previewUrl ? (
+      {previewSrc ? (
         <div className="overflow-hidden rounded-xl border border-outline-variant bg-surface-container">
           <div className="relative aspect-[2/3] w-full max-w-[280px] bg-surface-container-high">
             <Image
-              src={previewUrl}
-              alt="Pré-visualização do poster"
+              src={previewSrc}
+              alt={value ? 'Pré-visualização do poster' : existingAlt}
               fill
               className="object-cover"
               sizes="280px"
@@ -149,8 +157,10 @@ export function PosterUpload({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-4">
-              <p className="truncate text-label-sm font-label-sm text-white">{value.name}</p>
-              <p className="text-label-sm text-white/70">{formatFileSize(value.size)}</p>
+              <p className="truncate text-label-sm font-label-sm text-white">
+                {value ? value.name : 'Cartaz atual'}
+              </p>
+              {value && <p className="text-label-sm text-white/70">{formatFileSize(value.size)}</p>}
             </div>
           </div>
 

@@ -7,7 +7,8 @@ export async function POST(request: Request) {
     const body = await request.json();
     const venda = await registrarVendaIngresso({
       sessaoId: Number(body.sessaoId),
-      quantidade: Number(body.quantidade),
+      quantidade: body.quantidade != null ? Number(body.quantidade) : undefined,
+      assentos: Array.isArray(body.assentos) ? body.assentos : undefined,
     });
     return NextResponse.json(venda, { status: 201 });
   } catch (err) {

@@ -7,6 +7,7 @@ export type Filme = {
   sinopse: string | null;
   status: boolean;
   urlImagem?: string | null;
+  quantidadeVendasIngresso?: number;
 };
 
 export type FilmeRequest = {
@@ -73,6 +74,17 @@ export type Sessao = {
   horario: string;
   valorIngresso: number;
   lugaresDisponiveis: number;
+  /** true após horário + 10 min (vendas encerradas). */
+  encerrada?: boolean;
+};
+
+export type SessaoRequest = {
+  filmeId: number;
+  salaId?: number;
+  data: string;
+  horario: string;
+  valorIngresso: number;
+  lugaresDisponiveis: number;
 };
 
 export type PageResponse<T> = {
@@ -88,7 +100,8 @@ export type PageResponse<T> = {
 
 export type VendaIngressoRequest = {
   sessaoId: number;
-  quantidade: number;
+  quantidade?: number;
+  assentos?: string[];
 };
 
 export type VendaIngresso = {
@@ -97,6 +110,42 @@ export type VendaIngresso = {
   quantidade: number;
   valorTotal: number;
   dataVenda: string;
+  assentos?: string[];
+};
+
+export type VendaProdutoItemRequest = {
+  produtoId: number;
+  quantidade: number;
+};
+
+export type VendaProdutoRequest = {
+  itens: VendaProdutoItemRequest[];
+};
+
+export type StatusPedidoBomboniere =
+  | 'PENDENTE'
+  | 'EM_PREPARO'
+  | 'PRONTO'
+  | 'ENTREGUE'
+  | 'CANCELADO';
+
+export type VendaProdutoItem = {
+  id: number;
+  produto: Produto;
+  quantidade: number;
+  precoUnitario: number;
+  subtotal: number;
+};
+
+export type VendaProduto = {
+  id: number;
+  codigoPedido?: string | null;
+  status?: StatusPedidoBomboniere;
+  clienteNome?: string | null;
+  clienteLogin?: string | null;
+  valorTotal: number;
+  dataVenda: string;
+  itens?: VendaProdutoItem[];
 };
 
 export type ApiError = {

@@ -3,6 +3,7 @@ import { ApiUnavailable } from '@/components/cinema/ApiUnavailable';
 import { ComprarIngressoForm } from '@/components/cinema/ComprarIngressoForm';
 import { getApiErrorMessage } from '@/lib/api/error-message';
 import { getSessao } from '@/lib/api/sessoes';
+import { sessaoEncerrada } from '@/lib/utils/sessao';
 
 type PageProps = {
   searchParams: Promise<{ sessaoId?: string }>;
@@ -28,6 +29,19 @@ export default async function ComprarIngressoPage({ searchParams }: PageProps) {
 
   try {
     const sessao = await getSessao(id);
+
+    if (sessaoEncerrada(sessao)) {
+      return (
+        <main className="mx-auto max-w-container-max px-margin-mobile py-stack-lg pb-24">
+          <p className="text-body-md text-on-surface-variant">
+            Esta sessão já foi encerrada. As vendas encerram 10 minutos após o horário de início.
+          </p>
+          <Link href="/programacao" className="mt-4 inline-block text-primary underline">
+            Ver outras sessões
+          </Link>
+        </main>
+      );
+    }
 
     if (sessao.lugaresDisponiveis < 1) {
       return (

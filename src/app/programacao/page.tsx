@@ -1,30 +1,24 @@
 import { ApiUnavailable } from '@/components/cinema/ApiUnavailable';
-import { SessaoCard } from '@/components/cinema/SessaoCard';
+import { ProgramacaoPorFilme } from '@/components/cinema/ProgramacaoPorFilme';
 import { getApiErrorMessage } from '@/lib/api/error-message';
-import { listSessoesDisponiveis } from '@/lib/api/sessoes';
+import { listFilmesAtivos } from '@/lib/api/filmes';
+import { agruparSessoesPorFilme, listSessoesDisponiveis } from '@/lib/api/sessoes';
+
+export const dynamic = 'force-dynamic';
 
 export default async function ProgramacaoPage() {
   try {
-    const sessoes = await listSessoesDisponiveis();
+    const [filmes, sessoes] = await Promise.all([listFilmesAtivos(), listSessoesDisponiveis()]);
+    const sessoesPorFilme = agruparSessoesPorFilme(sessoes);
 
     return (
       <main className="mx-auto max-w-container-max px-margin-mobile py-stack-lg pb-24 md:pb-8">
         <h1 className="font-headline-lg text-headline-lg font-bold text-on-surface">Programação</h1>
         <p className="mt-2 text-body-md text-on-surface-variant">
-          Horários de exibição na tela 2D — atualizado em tempo real.
+          Filmes em cartaz na tela 2D — os mais recentes aparecem primeiro.
         </p>
 
-        {sessoes.length === 0 ? (
-          <p className="mt-12 text-center text-body-md text-on-surface-variant">
-            Nenhuma sessão com lugares disponíveis.
-          </p>
-        ) : (
-          <div className="mt-8 flex flex-col gap-4">
-            {sessoes.map((s) => (
-              <SessaoCard key={s.id} sessao={s} />
-            ))}
-          </div>
-        )}
+        <ProgramacaoPorFilme filmes={filmes} sessoesPorFilme={sessoesPorFilme} />
       </main>
     );
   } catch (error) {
