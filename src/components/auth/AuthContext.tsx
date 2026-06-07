@@ -2,12 +2,16 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { AuthUser, CadastroPayload, LoginPayload, UserRole } from '@/lib/auth/types';
+import { oauthLoginApi, type OAuthProvider } from '@/lib/auth/password-recovery';
 import { clearStoredAuth, getStoredAuth, setStoredAuth } from '@/lib/auth/storage';
+import { AUTH_UPDATED_EVENT, isAccessTokenExpired } from '@/lib/auth/token';
+import { refreshStoredSession } from '@/lib/api/refresh-session';
 
 type AuthContextValue = {
   user: AuthUser | null;
   ready: boolean;
   login: (payload: LoginPayload) => Promise<void>;
+  loginOAuth: (provider: OAuthProvider, token: string) => Promise<void>;
   cadastro: (payload: CadastroPayload) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
@@ -53,12 +57,54 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setUser(getStoredAuth());
-    setReady(true);
+    let cancelled = false;
+
+    (async () => {
+      const stored = getStoredAuth();
+      if (!stored) {
+        if (!cancelled) {
+          setUser(null);
+          setReady(true);
+        }
+        return;
+      }
+
+      if (!isAccessTokenExpired(stored.token)) {
+        if (!cancelled) {
+          setUser(stored);
+          setReady(true);
+        }
+        return;
+      }
+
+      const refreshed = await refreshStoredSession();
+      if (!cancelled) {
+        setUser(refreshed);
+        setReady(true);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    function syncFromStorage() {
+      setUser(getStoredAuth());
+    }
+    window.addEventListener(AUTH_UPDATED_EVENT, syncFromStorage);
+    return () => window.removeEventListener(AUTH_UPDATED_EVENT, syncFromStorage);
   }, []);
 
   const login = useCallback(async (payload: LoginPayload) => {
     const auth = await loginApi(payload);
+    setStoredAuth(auth);
+    setUser(auth);
+  }, []);
+
+  const loginOAuth = useCallback(async (provider: OAuthProvider, token: string) => {
+    const auth = await oauthLoginApi(provider, token);
     setStoredAuth(auth);
     setUser(auth);
   }, []);
@@ -79,12 +125,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       user,
       ready,
       login,
+      loginOAuth,
       cadastro,
       logout,
       isAuthenticated: !!user,
       hasRole: (...roles) => (user ? roles.includes(user.role) : false),
     }),
-    [user, ready, login, cadastro, logout],
+    [user, ready, login, loginOAuth, cadastro, logout],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

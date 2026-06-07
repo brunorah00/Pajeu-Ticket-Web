@@ -103,13 +103,18 @@ function RankingTable({
 }
 
 export default function PainelDashboardPage() {
-  const { user } = useAuth();
+  const { user, ready, isAuthenticated } = useAuth();
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user?.token) return;
+    if (!ready) return;
+    if (!isAuthenticated || !user?.token) {
+      setLoading(false);
+      return;
+    }
+
     let cancelled = false;
 
     (async () => {
@@ -130,14 +135,21 @@ export default function PainelDashboardPage() {
     return () => {
       cancelled = true;
     };
-  }, [user?.token]);
+  }, [ready, isAuthenticated, user?.token]);
+
+  const categoriasEstoque = useMemo(() => {
+    const itens = data?.estoqueBomboniere ?? [];
+    const extras = new Set(itens.map((p) => p.categoria));
+    const ordered: string[] = [];
+    for (const cat of CATEGORIAS_BOMBONIERE) {
+      if (extras.delete(cat)) ordered.push(cat);
+    }
+    return [...ordered, ...[...extras].sort((a, b) => a.localeCompare(b, 'pt-BR'))];
+  }, [data?.estoqueBomboniere]);
 
   const estoquePorCategoria = useMemo(() => {
     const itens = data?.estoqueBomboniere ?? [];
     const map = new Map<string, Produto[]>();
-    for (const cat of CATEGORIAS_BOMBONIERE) {
-      map.set(cat, []);
-    }
     for (const p of itens) {
       const arr = map.get(p.categoria) ?? [];
       arr.push(p);
@@ -232,7 +244,7 @@ export default function PainelDashboardPage() {
                 </tr>
               </thead>
               <tbody>
-                {CATEGORIAS_BOMBONIERE.map((cat) => {
+                {categoriasEstoque.map((cat) => {
                   const itens = estoquePorCategoria.get(cat) ?? [];
                   if (itens.length === 0) return null;
                   return (

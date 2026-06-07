@@ -7,7 +7,9 @@ export function getApiErrorMessage(error: unknown): string {
       return error.message;
     }
     if (error.status === 401 || error.status === 403) {
-      return 'Acesso negado pela API. Verifique autenticação.';
+      return error.message.includes('Sessão expirada')
+        ? error.message
+        : 'Acesso negado pela API. Verifique autenticação ou faça login novamente.';
     }
     return error.message;
   }
