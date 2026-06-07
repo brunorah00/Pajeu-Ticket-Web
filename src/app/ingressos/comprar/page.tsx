@@ -58,7 +58,7 @@ export default async function ComprarIngressoPage({ searchParams }: PageProps) {
 
     return (
       <main className="mx-auto max-w-container-max px-margin-mobile py-stack-lg pb-24 md:pb-8">
-        <ComprarIngressoForm sessao={sessao} />
+        <ComprarIngressoForm key={sessao.id} sessao={sessao} />
       </main>
     );
   } catch (error) {

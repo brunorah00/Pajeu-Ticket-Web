@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/components/auth/AuthContext';
+import { NotificacaoSino } from '@/components/notificacoes/NotificacaoSino';
 import { painelShellClass } from '@/lib/painel/layout';
 import type { UserRole } from '@/lib/auth/types';
 
@@ -89,6 +90,7 @@ export function PainelNav() {
                   {roleLabels[user.role]}
                 </span>
               </div>
+              <NotificacaoSino compact />
             </div>
           )}
         </div>

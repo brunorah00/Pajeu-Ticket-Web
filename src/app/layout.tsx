@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import { AuthProvider } from '@/components/auth/AuthContext';
 import { AppShell } from '@/components/layout/AppShell';
+import { NotificacaoProvider } from '@/components/notificacoes/NotificacaoProvider';
 import './globals.css';
 
 const jakarta = Plus_Jakarta_Sans({
@@ -30,7 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="font-[family-name:var(--font-inter)]">
         <AuthProvider>
-          <AppShell>{children}</AppShell>
+          <NotificacaoProvider>
+            <AppShell>{children}</AppShell>
+          </NotificacaoProvider>
         </AuthProvider>
       </body>
     </html>

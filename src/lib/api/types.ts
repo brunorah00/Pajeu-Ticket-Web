@@ -106,6 +106,10 @@ export type VendaIngressoRequest = {
 
 export type VendaIngresso = {
   id: number;
+  codigoPedido?: string | null;
+  status?: StatusPedidoBomboniere;
+  clienteNome?: string | null;
+  clienteLogin?: string | null;
   sessao: Sessao;
   quantidade: number;
   valorTotal: number;

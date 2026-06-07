@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAuth } from '@/components/auth/AuthContext';
+import { useNotificacoes } from '@/components/notificacoes/NotificacaoProvider';
 import { ProdutoThumb } from '@/components/painel/ProdutoThumb';
 import { getApiErrorMessage } from '@/lib/api/error-message';
 import { listarProdutos } from '@/lib/api/produtos';
@@ -14,12 +15,16 @@ type Carrinho = Record<number, number>;
 
 export function BomboniereLoja() {
   const { user } = useAuth();
+  const { registrarPedidoConhecido } = useNotificacoes();
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [carrinho, setCarrinho] = useState<Carrinho>({});
   const [loading, setLoading] = useState(true);
   const [checkout, setCheckout] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
-  const [sucesso, setSucesso] = useState<string | null>(null);
+  const [pedidoConfirmado, setPedidoConfirmado] = useState<{
+    codigo: string;
+    total: number;
+  } | null>(null);
 
   const carregar = useCallback(async () => {
     if (!user?.token) return;
@@ -86,11 +91,18 @@ export function BomboniereLoja() {
     });
   }
 
+  useEffect(() => {
+    if (!pedidoConfirmado) return;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [pedidoConfirmado]);
+
   async function finalizarPedido() {
     if (!user?.token || itensCarrinho.length === 0) return;
     setCheckout(true);
     setErro(null);
-    setSucesso(null);
     try {
       const venda = await registrarVendaProduto(user.token, {
         itens: itensCarrinho.map(({ produto, quantidade }) => ({
@@ -99,10 +111,11 @@ export function BomboniereLoja() {
         })),
       });
       setCarrinho({});
-      const codigo = venda.codigoPedido ?? String(venda.id);
-      setSucesso(
-        `Pedido ${codigo} confirmado! Total: ${formatMoeda(venda.valorTotal)}. Apresente este código na retirada.`,
-      );
+      setPedidoConfirmado({
+        codigo: venda.codigoPedido ?? String(venda.id),
+        total: venda.valorTotal,
+      });
+      registrarPedidoConhecido('bomboniere', venda.id, venda.status ?? 'PENDENTE');
       await carregar();
     } catch (err) {
       setErro(getApiErrorMessage(err));
@@ -119,6 +132,56 @@ export function BomboniereLoja() {
 
   return (
     <div className="mx-auto max-w-container-max">
+      {pedidoConfirmado && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            aria-label="Fechar"
+            onClick={() => setPedidoConfirmado(null)}
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pedido-bomboniere-title"
+            className="relative w-full max-w-md rounded-2xl border border-outline-variant bg-surface-container p-6 text-center shadow-2xl"
+          >
+            <span
+              className="material-symbols-outlined text-5xl text-primary"
+              style={{ fontVariationSettings: "'FILL' 1" }}
+            >
+              check_circle
+            </span>
+            <h2
+              id="pedido-bomboniere-title"
+              className="mt-4 font-headline-lg-mobile text-headline-lg-mobile text-on-surface"
+            >
+              Pedido confirmado!
+            </h2>
+            <p className="mt-2 text-body-sm text-on-surface-variant">Número do pedido</p>
+            <p className="mt-1 font-mono text-3xl font-bold tracking-wider text-primary">
+              {pedidoConfirmado.codigo}
+            </p>
+            <p className="mt-4 text-body-md text-on-surface-variant">
+              Total:{' '}
+              <span className="text-xl font-semibold text-on-surface">
+                {formatMoeda(pedidoConfirmado.total)}
+              </span>
+            </p>
+            <p className="mt-3 text-body-sm text-on-surface-variant">
+              Apresente este código na retirada do seu pedido.
+            </p>
+            <button
+              type="button"
+              onClick={() => setPedidoConfirmado(null)}
+              className="mt-6 w-full rounded-lg bg-primary-container py-3 text-label-lg font-label-lg text-white transition hover:opacity-90"
+            >
+              Entendi
+            </button>
+          </div>
+        </div>
+      )}
+
       <h1 className="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface">
         Bomboniere
       </h1>
@@ -129,11 +192,6 @@ export function BomboniereLoja() {
       {erro && (
         <p className="mt-4 rounded-lg border border-primary/40 bg-primary/10 px-4 py-3 text-body-sm text-primary">
           {erro}
-        </p>
-      )}
-      {sucesso && (
-        <p className="mt-4 rounded-lg border border-secondary/40 bg-secondary-container/30 px-4 py-3 text-body-sm text-on-surface">
-          {sucesso}
         </p>
       )}
 

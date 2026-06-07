@@ -1,11 +1,12 @@
 import Link from 'next/link';
 
 type PageProps = {
-  searchParams: Promise<{ vendaId?: string; assentos?: string }>;
+  searchParams: Promise<{ codigo?: string; vendaId?: string; assentos?: string }>;
 };
 
 export default async function ConfirmacaoPage({ searchParams }: PageProps) {
-  const { vendaId, assentos } = await searchParams;
+  const { codigo, vendaId, assentos } = await searchParams;
+  const codigoPedido = codigo ?? vendaId;
   const listaAssentos = assentos ? assentos.split(',').filter(Boolean) : [];
 
   return (
@@ -14,22 +15,23 @@ export default async function ConfirmacaoPage({ searchParams }: PageProps) {
         check_circle
       </span>
       <h1 className="mt-4 font-headline-lg text-headline-lg text-on-surface">Compra confirmada!</h1>
-      {vendaId && (
-        <p className="mt-2 text-body-md text-on-surface-variant">
-          Pedido nº <strong className="text-on-surface">{vendaId}</strong>
-        </p>
+      {codigoPedido && (
+        <>
+          <p className="mt-4 text-body-sm text-on-surface-variant">Código do pedido</p>
+          <p className="mt-1 font-mono text-3xl font-bold tracking-wider text-primary">{codigoPedido}</p>
+          <p className="mt-3 text-body-sm text-on-surface-variant">
+            Apresente este código na bilheteria para retirar seus ingressos.
+          </p>
+        </>
       )}
       {listaAssentos.length > 0 && (
-        <p className="mt-3 text-body-md text-on-surface">
+        <p className="mt-4 text-body-md text-on-surface">
           Assentos:{' '}
           <strong>{listaAssentos.join(', ')}</strong>
           {' · '}
           {listaAssentos.length} ingresso{listaAssentos.length === 1 ? '' : 's'}
         </p>
       )}
-      <p className="mt-4 text-body-sm text-on-surface-variant">
-        Os ingressos foram registrados no sistema Pajeu Ticket.
-      </p>
       <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
         <Link
           href="/programacao"

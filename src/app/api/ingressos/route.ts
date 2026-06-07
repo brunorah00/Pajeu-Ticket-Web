@@ -5,11 +5,16 @@ import { ApiRequestError } from '@/lib/api/http';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const venda = await registrarVendaIngresso({
-      sessaoId: Number(body.sessaoId),
-      quantidade: body.quantidade != null ? Number(body.quantidade) : undefined,
-      assentos: Array.isArray(body.assentos) ? body.assentos : undefined,
-    });
+    const auth = request.headers.get('authorization') ?? undefined;
+    const token = auth?.startsWith('Bearer ') ? auth.slice(7) : auth;
+    const venda = await registrarVendaIngresso(
+      {
+        sessaoId: Number(body.sessaoId),
+        quantidade: body.quantidade != null ? Number(body.quantidade) : undefined,
+        assentos: Array.isArray(body.assentos) ? body.assentos : undefined,
+      },
+      token,
+    );
     return NextResponse.json(venda, { status: 201 });
   } catch (err) {
     if (err instanceof ApiRequestError) {

@@ -5,15 +5,19 @@ import { useAuth } from '@/components/auth/AuthContext';
 import { useNotificacoes } from '@/components/notificacoes/NotificacaoProvider';
 import { PedidosBuscaInput } from '@/components/painel/PedidosBuscaInput';
 import { getApiErrorMessage } from '@/lib/api/error-message';
-import { atualizarStatusPedido, listarPedidosBomboniere } from '@/lib/api/pedidos-bomboniere';
-import type { StatusPedidoBomboniere, VendaProduto } from '@/lib/api/types';
+import { atualizarStatusPedidoIngresso, listarPedidosIngresso } from '@/lib/api/pedidos-ingresso';
+import type { StatusPedidoBomboniere, VendaIngresso } from '@/lib/api/types';
 import {
-  STATUS_ACOES,
-  STATUS_PEDIDO_FILTROS,
-  STATUS_PEDIDO_LABEL,
-} from '@/lib/bomboniere/status-pedido';
-import { filtrarPedidosBomboniere } from '@/lib/painel/filtrar-pedidos';
-import { formatMoeda } from '@/lib/utils/format';
+  INGRESSO_STATUS_ACOES,
+  INGRESSO_STATUS_FILTROS,
+  INGRESSO_STATUS_LABEL,
+} from '@/lib/ingressos/status-pedido-ingresso';
+import { filtrarPedidosIngresso } from '@/lib/painel/filtrar-pedidos';
+import { formatHorario, formatSessaoExibicao } from '@/lib/utils/format';
+
+type PedidosIngressoProps = {
+  embedded?: boolean;
+};
 
 function formatHora(iso: string): string {
   try {
@@ -23,7 +27,7 @@ function formatHora(iso: string): string {
   }
 }
 
-function codigoExibicao(pedido: VendaProduto): string {
+function codigoExibicao(pedido: VendaIngresso): string {
   return pedido.codigoPedido ?? `#${pedido.id}`;
 }
 
@@ -31,12 +35,8 @@ function statusBadgeClass(status: StatusPedidoBomboniere | undefined): string {
   switch (status) {
     case 'PENDENTE':
       return 'bg-amber-500/20 text-amber-200 border-amber-500/40';
-    case 'EM_PREPARO':
-      return 'bg-sky-500/20 text-sky-200 border-sky-500/40';
-    case 'PRONTO':
-      return 'bg-emerald-500/20 text-emerald-200 border-emerald-500/40';
     case 'ENTREGUE':
-      return 'bg-on-surface-variant/20 text-on-surface-variant border-outline-variant';
+      return 'bg-emerald-500/20 text-emerald-200 border-emerald-500/40';
     case 'CANCELADO':
       return 'bg-primary/15 text-primary border-primary/30';
     default:
@@ -44,16 +44,12 @@ function statusBadgeClass(status: StatusPedidoBomboniere | undefined): string {
   }
 }
 
-type PedidosBomboniereProps = {
-  embedded?: boolean;
-};
-
-export function PedidosBomboniere({ embedded = false }: PedidosBomboniereProps) {
+export function PedidosIngresso({ embedded = false }: PedidosIngressoProps) {
   const { user } = useAuth();
   const { registrarPedidoConhecido } = useNotificacoes();
-  const [filtro, setFiltro] = useState<StatusPedidoBomboniere | 'TODOS'>('TODOS');
+  const [filtro, setFiltro] = useState<StatusPedidoBomboniere | 'TODOS'>('PENDENTE');
   const [busca, setBusca] = useState('');
-  const [pedidos, setPedidos] = useState<VendaProduto[]>([]);
+  const [pedidos, setPedidos] = useState<VendaIngresso[]>([]);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
   const [atualizandoId, setAtualizandoId] = useState<number | null>(null);
@@ -63,7 +59,7 @@ export function PedidosBomboniere({ embedded = false }: PedidosBomboniereProps) 
     setLoading(true);
     setErro(null);
     try {
-      const lista = await listarPedidosBomboniere(
+      const lista = await listarPedidosIngresso(
         user.token,
         filtro === 'TODOS' ? undefined : filtro,
       );
@@ -88,8 +84,8 @@ export function PedidosBomboniere({ embedded = false }: PedidosBomboniereProps) 
     if (!user?.token) return;
     setAtualizandoId(pedidoId);
     try {
-      await atualizarStatusPedido(user.token, pedidoId, status);
-      registrarPedidoConhecido('bomboniere', pedidoId, status);
+      await atualizarStatusPedidoIngresso(user.token, pedidoId, status);
+      registrarPedidoConhecido('ingresso', pedidoId, status);
       await carregar();
     } catch (err) {
       setErro(getApiErrorMessage(err));
@@ -98,9 +94,9 @@ export function PedidosBomboniere({ embedded = false }: PedidosBomboniereProps) 
     }
   }
 
-  const pendentes = pedidos.filter((p) => p.status === 'PENDENTE').length;
+  const solicitados = pedidos.filter((p) => (p.status ?? 'PENDENTE') === 'PENDENTE').length;
   const pedidosFiltrados = useMemo(
-    () => filtrarPedidosBomboniere(pedidos, busca),
+    () => filtrarPedidosIngresso(pedidos, busca),
     [pedidos, busca],
   );
 
@@ -110,27 +106,27 @@ export function PedidosBomboniere({ embedded = false }: PedidosBomboniereProps) 
         <div>
           {embedded ? (
             <h2 className="flex items-center gap-2 text-title-md font-title-md text-on-surface">
-              <span className="material-symbols-outlined text-primary">fastfood</span>
-              Bomboniere
+              <span className="material-symbols-outlined text-primary">confirmation_number</span>
+              Ingressos
             </h2>
           ) : (
             <h1 className="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">
-              Pedidos da bomboniere
+              Solicitações de ingresso
             </h1>
           )}
           <p className="mt-1 text-body-sm text-on-surface-variant">
-            Fila de pedidos — cada pedido tem um código único para retirada.
+            Confirme na bilheteria usando o código da solicitação (sem pagamento online).
           </p>
         </div>
-        {pendentes > 0 && (
+        {solicitados > 0 && filtro !== 'ENTREGUE' && (
           <span className="rounded-full bg-primary px-3 py-1 text-label-sm font-label-sm text-on-primary">
-            {pendentes} aguardando
+            {solicitados} solicitado{solicitados === 1 ? '' : 's'}
           </span>
         )}
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">
-        {STATUS_PEDIDO_FILTROS.map((f) => (
+        {INGRESSO_STATUS_FILTROS.map((f) => (
           <button
             key={f.value}
             type="button"
@@ -156,7 +152,7 @@ export function PedidosBomboniere({ embedded = false }: PedidosBomboniereProps) 
       <PedidosBuscaInput
         value={busca}
         onChange={setBusca}
-        placeholder="Buscar por código, cliente ou produto…"
+        placeholder="Buscar por código, cliente, filme ou assento…"
       />
 
       {erro && (
@@ -166,73 +162,78 @@ export function PedidosBomboniere({ embedded = false }: PedidosBomboniereProps) 
       )}
 
       {loading && pedidos.length === 0 ? (
-        <p className="mt-10 text-center text-body-md text-on-surface-variant">Carregando pedidos…</p>
+        <p className="mt-8 text-center text-body-sm text-on-surface-variant">Carregando…</p>
       ) : pedidos.length === 0 ? (
-        <p className="mt-10 rounded-xl border border-dashed border-outline-variant bg-surface-elevated px-6 py-12 text-center text-body-md text-on-surface-variant">
-          Nenhum pedido para este filtro hoje.
+        <p className="mt-8 rounded-xl border border-dashed border-outline-variant bg-surface-elevated px-4 py-10 text-center text-body-sm text-on-surface-variant">
+          Nenhuma solicitação de ingresso para este filtro hoje.
         </p>
       ) : pedidosFiltrados.length === 0 ? (
-        <p className="mt-10 rounded-xl border border-dashed border-outline-variant bg-surface-elevated px-6 py-12 text-center text-body-md text-on-surface-variant">
-          Nenhum pedido encontrado para &ldquo;{busca}&rdquo;.
+        <p className="mt-8 rounded-xl border border-dashed border-outline-variant bg-surface-elevated px-4 py-10 text-center text-body-sm text-on-surface-variant">
+          Nenhuma solicitação encontrada para &ldquo;{busca}&rdquo;.
         </p>
       ) : (
         <ul className={`mt-4 grid gap-3 ${embedded ? '' : 'lg:grid-cols-2'}`}>
           {pedidosFiltrados.map((pedido) => {
             const status = pedido.status ?? 'PENDENTE';
             const busy = atualizandoId === pedido.id;
+            const sessao = pedido.sessao;
             return (
               <li
                 key={pedido.id}
-                className="rounded-xl border border-outline-variant bg-surface-elevated p-5 shadow-sm"
+                className="rounded-xl border border-outline-variant bg-surface-elevated p-4 shadow-sm"
               >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="font-mono text-2xl font-bold tracking-wider text-primary">
+                    <p className="text-label-sm text-on-surface-variant">Código da solicitação</p>
+                    <p className="font-mono text-xl font-bold tracking-wider text-primary">
                       {codigoExibicao(pedido)}
                     </p>
                     <p className="mt-1 text-body-sm text-on-surface-variant">
-                      {formatHora(pedido.dataVenda)} · {formatMoeda(pedido.valorTotal)}
+                      {formatHora(pedido.dataVenda)} · {pedido.quantidade} ingresso
+                      {pedido.quantidade === 1 ? '' : 's'}
                     </p>
                   </div>
                   <span
-                    className={`rounded-lg border px-3 py-1 text-label-sm font-label-sm ${statusBadgeClass(status)}`}
+                    className={`rounded-lg border px-2.5 py-0.5 text-label-sm font-label-sm ${statusBadgeClass(status)}`}
                   >
-                    {STATUS_PEDIDO_LABEL[status]}
+                    {INGRESSO_STATUS_LABEL[status]}
                   </span>
                 </div>
 
+                {sessao && (
+                  <div className="mt-3 border-t border-outline-variant pt-3">
+                    <p className="font-medium text-on-surface">{sessao.filme.titulo}</p>
+                    <p className="mt-0.5 text-body-sm text-on-surface-variant">
+                      {formatSessaoExibicao(sessao.data, sessao.horario)} · {formatHorario(sessao.horario)}
+                    </p>
+                  </div>
+                )}
+
                 {(pedido.clienteNome || pedido.clienteLogin) && (
-                  <p className="mt-3 flex items-center gap-2 text-body-md text-on-surface">
-                    <span className="material-symbols-outlined text-lg text-on-surface-variant">
+                  <p className="mt-2 flex items-center gap-2 text-body-sm text-on-surface">
+                    <span className="material-symbols-outlined text-base text-on-surface-variant">
                       person
                     </span>
                     {pedido.clienteNome ?? pedido.clienteLogin}
                   </p>
                 )}
 
-                <ul className="mt-4 space-y-1 border-t border-outline-variant pt-4">
-                  {(pedido.itens ?? []).map((item) => (
-                    <li
-                      key={item.id}
-                      className="flex justify-between gap-2 text-body-sm text-on-surface-variant"
-                    >
-                      <span>
-                        {item.quantidade}× {item.produto?.nome ?? 'Item'}
-                      </span>
-                      <span className="text-on-surface">{formatMoeda(item.subtotal)}</span>
-                    </li>
-                  ))}
-                </ul>
+                {(pedido.assentos?.length ?? 0) > 0 && (
+                  <p className="mt-2 text-body-sm text-on-surface-variant">
+                    Assentos:{' '}
+                    <span className="font-medium text-on-surface">{pedido.assentos!.join(', ')}</span>
+                  </p>
+                )}
 
-                {status !== 'ENTREGUE' && status !== 'CANCELADO' && (
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {STATUS_ACOES.filter((a) => a.status !== status).map((acao) => (
+                {status === 'PENDENTE' && (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {INGRESSO_STATUS_ACOES.map((acao) => (
                       <button
                         key={acao.status}
                         type="button"
                         disabled={busy}
                         onClick={() => mudarStatus(pedido.id, acao.status)}
-                        className={`flex items-center gap-1 rounded-lg px-3 py-2 text-label-sm font-label-sm transition disabled:opacity-50 ${
+                        className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-label-sm font-label-sm transition disabled:opacity-50 ${
                           acao.status === 'CANCELADO'
                             ? 'border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary'
                             : 'bg-primary-container text-white hover:opacity-90'

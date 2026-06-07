@@ -1,23 +1,31 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { MapaAssentos } from '@/components/cinema/MapaAssentos';
+import { useAuth } from '@/components/auth/AuthContext';
+import { useNotificacoes } from '@/components/notificacoes/NotificacaoProvider';
 import type { Sessao } from '@/lib/api/types';
 import { listAssentosOcupados } from '@/lib/api/sessoes';
 import { formatMoeda, formatSessaoExibicao } from '@/lib/utils/format';
+
+type CompraConfirmada = {
+  codigo: string;
+  assentos: string[];
+};
 
 type ComprarIngressoFormProps = {
   sessao: Sessao;
 };
 
 export function ComprarIngressoForm({ sessao }: ComprarIngressoFormProps) {
-  const router = useRouter();
+  const { user } = useAuth();
+  const { registrarPedidoConhecido } = useNotificacoes();
   const [ocupados, setOcupados] = useState<Set<string>>(new Set());
   const [selecionados, setSelecionados] = useState<Set<string>>(new Set());
   const [loadingMapa, setLoadingMapa] = useState(true);
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const [compraConfirmada, setCompraConfirmada] = useState<CompraConfirmada | null>(null);
 
   const maxSelecao = Math.min(sessao.lugaresDisponiveis, 10);
   const quantidade = selecionados.size;
@@ -40,8 +48,26 @@ export function ComprarIngressoForm({ sessao }: ComprarIngressoFormProps) {
   }, [sessao.id]);
 
   useEffect(() => {
+    setSelecionados(new Set());
+    setErro(null);
+    setCompraConfirmada(null);
+    setLoading(false);
     carregarOcupados();
-  }, [carregarOcupados]);
+  }, [sessao.id, carregarOcupados]);
+
+  useEffect(() => {
+    if (!compraConfirmada) return;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [compraConfirmada]);
+
+  function fecharConfirmacao() {
+    setCompraConfirmada(null);
+    setSelecionados(new Set());
+    carregarOcupados();
+  }
 
   function toggleAssento(codigo: string) {
     setErro(null);
@@ -67,9 +93,14 @@ export function ComprarIngressoForm({ sessao }: ComprarIngressoFormProps) {
     setLoading(true);
 
     try {
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (user?.token) {
+        headers.Authorization = `Bearer ${user.token}`;
+      }
+
       const res = await fetch('/api/ingressos', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({
           sessaoId: sessao.id,
           assentos: assentosOrdenados,
@@ -81,8 +112,13 @@ export function ComprarIngressoForm({ sessao }: ComprarIngressoFormProps) {
         throw new Error(data.message ?? 'Falha ao registrar venda');
       }
 
-      const assentosParam = assentosOrdenados.join(',');
-      router.push(`/ingressos/confirmacao?vendaId=${data.id}&assentos=${encodeURIComponent(assentosParam)}`);
+      setCompraConfirmada({
+        codigo: String(data.codigoPedido ?? data.id),
+        assentos: assentosOrdenados,
+      });
+      if (typeof data.id === 'number') {
+        registrarPedidoConhecido('ingresso', data.id, data.status ?? 'PENDENTE');
+      }
     } catch (err) {
       setErro(err instanceof Error ? err.message : 'Erro ao comprar ingressos');
       await carregarOcupados();
@@ -93,6 +129,54 @@ export function ComprarIngressoForm({ sessao }: ComprarIngressoFormProps) {
 
   return (
     <div className="mx-auto max-w-6xl">
+      {compraConfirmada && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            aria-label="Fechar"
+            onClick={fecharConfirmacao}
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pedido-ingresso-title"
+            className="relative w-full max-w-md rounded-2xl border border-outline-variant bg-surface-container p-6 text-center shadow-2xl"
+          >
+            <span
+              className="material-symbols-outlined text-5xl text-primary"
+              style={{ fontVariationSettings: "'FILL' 1" }}
+            >
+              check_circle
+            </span>
+            <h2
+              id="pedido-ingresso-title"
+              className="mt-4 font-headline-lg-mobile text-headline-lg-mobile text-on-surface"
+            >
+              Solicitação enviada!
+            </h2>
+            <p className="mt-2 text-body-sm text-on-surface-variant">Código da solicitação</p>
+            <p className="mt-1 font-mono text-3xl font-bold tracking-wider text-primary">
+              {compraConfirmada.codigo}
+            </p>
+            <p className="mt-3 text-body-sm text-on-surface">
+              Assentos:{' '}
+              <strong>{compraConfirmada.assentos.join(', ')}</strong>
+            </p>
+            <p className="mt-3 text-body-sm text-on-surface-variant">
+              Apresente este código na bilheteria. O pagamento e a confirmação são feitos presencialmente.
+            </p>
+            <button
+              type="button"
+              onClick={fecharConfirmacao}
+              className="mt-6 w-full rounded-lg bg-primary-container py-3 text-label-lg font-label-lg text-white transition hover:opacity-90"
+            >
+              Entendi
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="mb-6">
         <h1 className="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface">
           Escolha seus assentos
@@ -171,7 +255,7 @@ export function ComprarIngressoForm({ sessao }: ComprarIngressoFormProps) {
               className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container px-6 py-3.5 text-label-lg font-label-lg text-white transition hover:opacity-90 disabled:opacity-50"
             >
               <span className="material-symbols-outlined">confirmation_number</span>
-              {loading ? 'Processando…' : 'Confirmar compra'}
+              {loading ? 'Enviando…' : 'Solicitar ingressos'}
             </button>
 
             <p className="mt-3 text-center text-label-sm text-on-surface-variant">

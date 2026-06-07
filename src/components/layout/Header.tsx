@@ -5,14 +5,30 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { useAuth } from '@/components/auth/AuthContext';
+import { NotificacaoSino } from '@/components/notificacoes/NotificacaoSino';
 
-const drawerNav = [
+type DrawerNavItem = {
+  href: string;
+  label: string;
+  icon: string;
+  staffOnly?: boolean;
+  authOnly?: boolean;
+  comingSoonMessage?: string;
+};
+
+const drawerNav: DrawerNavItem[] = [
   { href: '/painel/dashboard', label: 'Painel', icon: 'dashboard', staffOnly: true },
-  { href: '#', label: 'Club Cine São José', icon: 'star' },
+  { href: '/meus-pedidos', label: 'Meus pedidos', icon: 'receipt_long', authOnly: true },
+  {
+    href: '#',
+    label: 'Club Cine São José',
+    icon: 'star',
+    comingSoonMessage:
+      'Em breve teremos a inclusão de um clube para membros do Cine São José, com benefícios exclusivos para quem faz parte.',
+  },
   { href: '/programacao', label: 'Programação', icon: 'movie' },
+  { href: '/novidades', label: 'Novidades', icon: 'new_releases' },
   { href: '/bomboniere', label: 'Bomboniere', icon: 'fastfood' },
-  { href: '/ingressos/comprar', label: 'Comprar Ingresso', icon: 'confirmation_number' },
-  { href: '#', label: 'Trabalhe Conosco', icon: 'work' },
 ];
 
 export function Header() {
@@ -21,6 +37,7 @@ export function Header() {
   const isStaff = hasRole('ADMIN', 'FUNCIONARIO');
   const [open, setOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [comingSoon, setComingSoon] = useState<{ title: string; message: string } | null>(null);
 
   useEffect(() => {
     document.body.classList.toggle('overflow-hidden', open);
@@ -32,13 +49,13 @@ export function Header() {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    if (loginOpen) {
+    if (loginOpen || comingSoon) {
       document.body.style.overflow = 'hidden';
       return () => {
         document.body.style.overflow = '';
       };
     }
-  }, [loginOpen]);
+  }, [loginOpen, comingSoon]);
 
   return (
     <>
@@ -59,6 +76,7 @@ export function Header() {
                 >
                   {user.nome}
                 </span>
+                <NotificacaoSino />
                 <button
                   type="button"
                   onClick={logout}
@@ -93,6 +111,48 @@ export function Header() {
         <AuthModal area="site" onClose={() => setLoginOpen(false)} />
       )}
 
+      {comingSoon && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            aria-label="Fechar"
+            onClick={() => setComingSoon(null)}
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="coming-soon-title"
+            className="relative w-full max-w-md rounded-2xl border border-outline-variant bg-surface-container p-6 shadow-2xl"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-container/20 text-primary">
+                <span className="material-symbols-outlined text-2xl">star</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setComingSoon(null)}
+                className="rounded-lg p-1 text-on-surface-variant transition hover:bg-surface-container-high hover:text-on-surface"
+                aria-label="Fechar"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+            <h2 id="coming-soon-title" className="mt-4 font-headline-lg-mobile text-headline-lg-mobile text-on-surface">
+              {comingSoon.title}
+            </h2>
+            <p className="mt-3 text-body-md text-on-surface-variant">{comingSoon.message}</p>
+            <button
+              type="button"
+              onClick={() => setComingSoon(null)}
+              className="mt-6 w-full rounded-lg bg-primary-container py-3 text-label-lg font-label-lg text-white transition hover:opacity-90"
+            >
+              Entendi
+            </button>
+          </div>
+        </div>
+      )}
+
       <div
         className={`fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm transition-opacity ${
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
@@ -115,20 +175,40 @@ export function Header() {
         </div>
         <ul className="flex flex-col gap-2">
           {drawerNav
-            .filter((item) => !('staffOnly' in item && item.staffOnly) || isStaff)
+            .filter(
+              (item) =>
+                (!item.staffOnly || isStaff) &&
+                (!item.authOnly || isAuthenticated),
+            )
             .map((item) => {
               const active = pathname === item.href;
+              const className = `flex w-full items-center gap-4 rounded-lg p-3 text-title-md font-title-md transition-colors ${
+                active
+                  ? 'bg-primary-container text-on-primary-container'
+                  : 'text-on-surface-variant hover:bg-secondary-container'
+              }`;
+
+              if (item.comingSoonMessage) {
+                return (
+                  <li key={item.label}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOpen(false);
+                        setComingSoon({ title: item.label, message: item.comingSoonMessage! });
+                      }}
+                      className={className}
+                    >
+                      <span className="material-symbols-outlined">{item.icon}</span>
+                      {item.label}
+                    </button>
+                  </li>
+                );
+              }
+
               return (
                 <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={`flex items-center gap-4 rounded-lg p-3 text-title-md font-title-md transition-colors ${
-                      active
-                        ? 'bg-primary-container text-on-primary-container'
-                        : 'text-on-surface-variant hover:bg-secondary-container'
-                    }`}
-                  >
+                  <Link href={item.href} onClick={() => setOpen(false)} className={className}>
                     <span className="material-symbols-outlined">{item.icon}</span>
                     {item.label}
                   </Link>

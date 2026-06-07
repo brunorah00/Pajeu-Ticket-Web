@@ -1,5 +1,5 @@
-import { PedidosBomboniere } from '@/components/painel/PedidosBomboniere';
+import { PainelPedidos } from '@/components/painel/PainelPedidos';
 
 export default function PedidosPage() {
-  return <PedidosBomboniere />;
+  return <PainelPedidos />;
 }

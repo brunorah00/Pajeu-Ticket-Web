@@ -1,6 +1,10 @@
 import { apiFetch } from './http';
 import type { PageResponse, Sessao } from './types';
+import { getProximosDiasProgramacao } from '@/lib/utils/programacao-datas';
+import { agruparSessoesPorFilme } from '@/lib/utils/sessoes-group';
 import { sessaoDisponivelParaVenda } from '@/lib/utils/sessao';
+
+export { agruparSessoesPorFilme };
 
 export async function listSessoes(page = 0, size = 200): Promise<PageResponse<Sessao>> {
   return apiFetch<PageResponse<Sessao>>('/sessoes', {
@@ -21,30 +25,10 @@ export async function listAssentosOcupados(sessaoId: number): Promise<SessaoAsse
   return apiFetch<SessaoAssentosResponse>(`/sessoes/${sessaoId}/assentos`);
 }
 
-function hojeIso(): string {
-  return new Date().toISOString().slice(0, 10);
-}
-
 export async function listSessoesDisponiveis(): Promise<Sessao[]> {
   const page = await listSessoes(0, 500);
-  const hoje = hojeIso();
-  return page.content.filter((s) => s.data >= hoje && sessaoDisponivelParaVenda(s));
-}
-
-export function agruparSessoesPorFilme(sessoes: Sessao[]): Map<number, Sessao[]> {
-  const map = new Map<number, Sessao[]>();
-  const ordenadas = [...sessoes].sort((a, b) => {
-    const cmpData = b.data.localeCompare(a.data);
-    if (cmpData !== 0) return cmpData;
-    return b.horario.localeCompare(a.horario);
-  });
-  for (const s of ordenadas) {
-    const id = s.filme.id;
-    const arr = map.get(id) ?? [];
-    arr.push(s);
-    map.set(id, arr);
-  }
-  return map;
+  const diasValidos = new Set(getProximosDiasProgramacao(7).map((d) => d.iso));
+  return page.content.filter((s) => diasValidos.has(s.data) && sessaoDisponivelParaVenda(s));
 }
 
 export async function listSessoesPorFilme(filmeId: number): Promise<Sessao[]> {
@@ -55,7 +39,7 @@ export async function listSessoesPorFilme(filmeId: number): Promise<Sessao[]> {
 }
 
 export async function listSessoesHoje(): Promise<Sessao[]> {
-  const hoje = new Date().toISOString().slice(0, 10);
+  const hoje = getProximosDiasProgramacao(1)[0].iso;
   const todas = await listSessoesDisponiveis();
   return todas.filter((s) => s.data === hoje);
 }

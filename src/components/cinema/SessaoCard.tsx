@@ -5,10 +5,23 @@ import { filmePath } from '@/lib/utils/slug';
 
 type SessaoCardProps = {
   sessao: Sessao;
+  compact?: boolean;
 };
 
-export function SessaoCard({ sessao }: SessaoCardProps) {
+export function SessaoCard({ sessao, compact = false }: SessaoCardProps) {
   const comprarHref = `/ingressos/comprar?sessaoId=${sessao.id}`;
+
+  if (compact) {
+    return (
+      <Link
+        href={comprarHref}
+        className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary-container px-4 py-2.5 text-label-lg font-label-lg text-white transition hover:opacity-90"
+      >
+        <span className="material-symbols-outlined text-base">confirmation_number</span>
+        Comprar {formatHorario(sessao.horario)}
+      </Link>
+    );
+  }
 
   return (
     <article className="flex flex-col gap-4 rounded-xl border border-outline-variant bg-surface-elevated p-5 md:flex-row md:items-center md:justify-between">

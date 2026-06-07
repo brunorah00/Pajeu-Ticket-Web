@@ -8,9 +8,16 @@ import { filmePath } from '@/lib/utils/slug';
 type ProgramacaoPorFilmeProps = {
   filmes: Filme[];
   sessoesPorFilme: Map<number, Sessao[]>;
+  className?: string;
+  compact?: boolean;
 };
 
-export function ProgramacaoPorFilme({ filmes, sessoesPorFilme }: ProgramacaoPorFilmeProps) {
+export function ProgramacaoPorFilme({
+  filmes,
+  sessoesPorFilme,
+  className = 'mt-8',
+  compact = false,
+}: ProgramacaoPorFilmeProps) {
   if (filmes.length === 0) {
     return (
       <p className="mt-12 text-center text-body-md text-on-surface-variant">
@@ -20,7 +27,7 @@ export function ProgramacaoPorFilme({ filmes, sessoesPorFilme }: ProgramacaoPorF
   }
 
   return (
-    <div className="mt-8 space-y-10">
+    <div className={`${className} space-y-10`}>
       {filmes.map((filme) => {
         const sessoes = sessoesPorFilme.get(filme.id) ?? [];
         return (
@@ -57,11 +64,17 @@ export function ProgramacaoPorFilme({ filmes, sessoesPorFilme }: ProgramacaoPorF
               </div>
             </div>
 
-            <div className="mt-5 space-y-3">
+            <div className={compact ? 'mt-5' : 'mt-5 space-y-3'}>
               {sessoes.length === 0 ? (
                 <p className="rounded-lg border border-dashed border-outline-variant px-4 py-3 text-body-sm text-on-surface-variant">
                   Horários em breve. Consulte a bilheteria.
                 </p>
+              ) : compact ? (
+                <div className="flex flex-wrap gap-2">
+                  {sessoes.map((s) => (
+                    <SessaoCard key={s.id} sessao={s} compact />
+                  ))}
+                </div>
               ) : (
                 sessoes.map((s) => <SessaoCard key={s.id} sessao={s} />)
               )}
